@@ -1,0 +1,29 @@
+site_name: Blog
+theme:
+  name: 'material'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+extra_css:
+  - /stylesheets/extra.css
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.arithmatex
+  - pymdownx.details
+  - pymdownx.tilde
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - markdown.extensions.def_list
+  - markdown.extensions.attr_list
+  - attr_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
