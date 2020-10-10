@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MLP For MNIST | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="MLP For MNIST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MLP for MNIST" />
+<meta property="og:description" content="MLP for MNIST" />
+<link rel="canonical" href="http://localhost:4000/ai,/ml/2020/10/10/ml-for-mnist.html" />
+<meta property="og:url" content="http://localhost:4000/ai,/ml/2020/10/10/ml-for-mnist.html" />
+<meta property="og:site_name" content="Your awesome title" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-10T14:39:10-04:00" />
+<script type="application/ld+json">
+{"description":"MLP for MNIST","@type":"BlogPosting","url":"http://localhost:4000/ai,/ml/2020/10/10/ml-for-mnist.html","headline":"MLP For MNIST","dateModified":"2020-10-10T14:39:10-04:00","datePublished":"2020-10-10T14:39:10-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ai,/ml/2020/10/10/ml-for-mnist.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Your awesome title</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MLP For MNIST</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-10-10T14:39:10-04:00" itemprop="datePublished">Oct 10, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="mlp-for-mnist">MLP for MNIST</h1>
+
+<p><em>Note</em>: This notebook is <strong>heavily</strong> based on a <a href="https://github.com/udacity/deep-learning-v2-pytorch/blob/master/convolutional-neural-networks/mnist-mlp/mnist_mlp_solution.ipynb">Deep Learning Udacity Notebook</a>. As a result many of the notes, comments, and code originate from there.</p>
+
+<p>In this notebook, we will train an MLP to classify images from the <a href="http://yann.lecun.com/exdb/mnist/">MNIST database</a> hand-written digit database.</p>
+
+<hr />
+
+<p><strong>Table of Contents:</strong></p>
+
+<ol>
+  <li><a href="#data">Data</a>
+    <ol>
+      <li><a href="#preparing-data">Prepare the data</a></li>
+      <li><a href="#vizualize-data">Load the data and visualize the data</a></li>
+    </ol>
+  </li>
+  <li><a href="#architecture">Architecture</a>
+    <ol>
+      <li><a href="#network-architecture">Define a neural network architecture</a></li>
+      <li><a href="#loss-optimizer">Define a Loss function and optimizer</a></li>
+    </ol>
+  </li>
+  <li><a href="#train">Train the model + use validation</a>
+    <ul>
+      <li><a href="#save-load">Save the model</a></li>
+    </ul>
+  </li>
+  <li><a href="#test">Test the performance of the trained model</a>
+    <ul>
+      <li><a href="#visualize-test">See which things the model gets wrong</a></li>
+    </ul>
+  </li>
+  <li><a href="#other-notes">Other Notes</a>
+    <ol>
+      <li><a href="#transformers">Transformers</a></li>
+      <li><a href="#dataloader">DataLoader</a></li>
+      <li><a href="#autograd">Autograd</a></li>
+      <li><a href="#cuda">CUDA</a></li>
+    </ol>
+  </li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># import libraries
+</span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="n">transforms</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="n">optim</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># print multiple outputs
+# from IPython.core.interactiveshell import InteractiveShell
+# InteractiveShell.ast_node_interactivity = "all"
+</span>
+<span class="o">%</span><span class="n">matplotlib</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Using matplotlib backend: agg
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set everything up for development on GPU
+</span>
+<span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="s">'cuda:0'</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="s">'cpu'</span>
+    
+<span class="n">device</span>
+
+<span class="c1"># notice that tensor right now says that it is on cuda
+</span><span class="k">assert</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">).</span><span class="n">get_device</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><a id="data"></a></p>
+<h2 id="data">Data</h2>
+
+<hr />
+
+<p><a id="preparing-data"></a></p>
+
+<h3 id="preparing-the-data">Preparing the Data</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># number of subprocesses to use for data loading
+</span><span class="n">num_workers</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="c1"># number of images to load per batch
+</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="c1"># convert image to torch.FloatTensor
+</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">()</span>
+
+<span class="c1"># choose the training and test datasets
+</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s">'data'</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                   <span class="n">download</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s">'data'</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                  <span class="n">download</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+
+<span class="c1"># prepare data loaders
+</span><span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+    <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> 
+    <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to data/MNIST/raw/train-images-idx3-ubyte.gz
+
+
+
+HBox(children=(FloatProgress(value=1.0, bar_style='info', max=1.0), HTML(value='')))
+
+
+Extracting data/MNIST/raw/train-images-idx3-ubyte.gz to data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to data/MNIST/raw/train-labels-idx1-ubyte.gz
+
+
+
+HBox(children=(FloatProgress(value=1.0, bar_style='info', max=1.0), HTML(value='')))
+
+
+Extracting data/MNIST/raw/train-labels-idx1-ubyte.gz to data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to data/MNIST/raw/t10k-images-idx3-ubyte.gz
+
+
+
+
+HBox(children=(FloatProgress(value=1.0, bar_style='info', max=1.0), HTML(value='')))
+
+
+Extracting data/MNIST/raw/t10k-images-idx3-ubyte.gz to data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+
+
+
+HBox(children=(FloatProgress(value=1.0, bar_style='info', max=1.0), HTML(value='')))
+
+
+Extracting data/MNIST/raw/t10k-labels-idx1-ubyte.gz to data/MNIST/raw
+Processing...
+Done!
+
+
+/opt/conda/lib/python3.7/site-packages/torchvision/datasets/mnist.py:469: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/tensor_numpy.cpp:141.)
+  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)
+</code></pre></div></div>
+
+<p><a id="visualize-data"></a></p>
+<h3 id="visualize-a-batch-of-training-data">Visualize a Batch of Training Data</h3>
+
+<ul>
+  <li>Take a look at the data, make sure it is loaded in correctly.</li>
+  <li>Try and spot some patterns, get familiar with the dataset.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">torchvision</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">);</span>
+    <span class="n">npimg</span> <span class="o">=</span> <span class="n">images</span><span class="p">.</span><span class="n">numpy</span><span class="p">();</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)));</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># get some random training images
+</span><span class="n">dataiter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span>
+<span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">dataiter</span><span class="p">.</span><span class="nb">next</span><span class="p">()</span>
+
+<span class="c1"># show images
+</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_7_1.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([5, 1, 8, 9, 1, 6, 9, 9, 6, 0, 7, 6, 0, 0, 9, 3, 6, 1, 2, 0, 0, 4, 0, 9,
+        0, 6, 5, 6, 3, 3, 4, 9])
+</code></pre></div></div>
+
+<h3 id="view-an-image-in-more-detail">View an Image in More Detail</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span> 
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+<span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">shape</span>
+<span class="n">thresh</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="nb">max</span><span class="p">()</span><span class="o">/</span><span class="mf">2.5</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">])</span> <span class="k">if</span> <span class="n">img</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">!=</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">),</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s">'white'</span> <span class="k">if</span> <span class="n">img</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">&lt;</span><span class="n">thresh</span> <span class="k">else</span> <span class="s">'black'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_9_0.png" alt="png" /></p>
+
+<p><a id="architecture"></a></p>
+<h2 id="architecture">Architecture</h2>
+
+<hr />
+
+<p><a id="network-architecture"></a></p>
+<h3 id="define-the-network-architecture">Define the Network <a href="http://pytorch.org/docs/stable/nn.html">Architecture</a></h3>
+
+<p>The architecture will be responsible for taking 784-dimensional Tensor(where each one of the pixels is considered an initial feature), and producing a Tensor of length 10 (our number of classes) that indicates the class scores for an input image.</p>
+
+<ul>
+  <li>The nodes are what hold the actual data. First layer nodes will hold the initial inputs as features, and later layer nodes will represent more and more abstract features that the network learns based on combinations of features from previous layeres</li>
+  <li>Layers (the ones in init) apply a specific transformation to the inputs. For example a linear transformation <code class="language-plaintext highlighter-rouge">nn.Linear(inputs, outputs)</code> will apply the equation $y=x*W^T+b$ to the transformation.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="c1"># define the NN architecture
+</span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_features_in</span><span class="p">,</span> <span class="n">num_features_out</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="c1"># number of hidden nodes in each layer (512)
+</span>        <span class="n">hidden_1</span> <span class="o">=</span> <span class="mi">512</span>
+        <span class="n">hidden_2</span> <span class="o">=</span> <span class="mi">512</span>
+        <span class="c1"># linear layer (num_features_in -&gt; hidden_1)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_features_in</span><span class="p">,</span> <span class="n">hidden_1</span><span class="p">)</span>
+        <span class="c1"># linear layer (n_hidden -&gt; hidden_2)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_1</span><span class="p">,</span> <span class="n">hidden_2</span><span class="p">)</span>
+        <span class="c1"># linear layer (n_hidden -&gt; 10)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_2</span><span class="p">,</span> <span class="n">num_features_out</span><span class="p">)</span>
+        <span class="c1"># dropout layer (p=0.2)
+</span>        <span class="c1"># dropout prevents overfitting of data
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># flatten image input
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span>
+        <span class="c1"># add hidden layer, with relu activation function
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="c1"># add dropout layer
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># add hidden layer, with relu activation function
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="c1"># add dropout layer
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># add output layer
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># initialize the NN
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">,</span><span class="mi">10</span><span class="p">).</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (fc1): Linear(in_features=784, out_features=512, bias=True)
+  (fc2): Linear(in_features=512, out_features=512, bias=True)
+  (fc3): Linear(in_features=512, out_features=10, bias=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+)
+</code></pre></div></div>
+
+<p><a id="loss-optimizer"></a></p>
+<h3 id="specify-loss-function-and-optimizer">Specify <a href="http://pytorch.org/docs/stable/nn.html#loss-functions">Loss Function</a> and <a href="http://pytorch.org/docs/stable/optim.html">Optimizer</a></h3>
+
+<p>It’s recommended that you use cross-entropy loss for classification. If you look at the documentation (linked above), you can see that PyTorch’s cross entropy function applies a softmax funtion to the output layer <em>and</em> then calculates the log loss.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># specify loss function (categorical cross-entropy)
+</span><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="c1"># specify optimizer (stochastic gradient descent) and learning rate = 0.01
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><a id="train"></a></p>
+<h2 id="train-the-network">Train the Network</h2>
+
+<hr />
+
+<p>The steps for training/learning from a batch of data are described in the comments below:</p>
+<ol>
+  <li>Clear the gradients of all optimized variables</li>
+  <li>Forward pass: compute predicted outputs by passing inputs to the model</li>
+  <li>Calculate the loss</li>
+  <li>Backward pass: Based on the loss, do backpropagation and calculate the gradient, i.e compute gradient of the loss with respect to model parameters</li>
+  <li>Update the weights: Perform a single optimization step (parameter update)</li>
+  <li>Update average training loss</li>
+</ol>
+
+<ul>
+  <li>Notice how values for training loss decrease over time.</li>
+  <li>Want it to keep decreasing whilst at the same time avoiding overfitting the data</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># number of epochs to train the model
+</span><span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">train_losses</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="n">train</span><span class="p">()</span> <span class="c1"># prep model for training
+</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+    <span class="c1"># monitor training loss
+</span>    <span class="n">train_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="c1">###################
+</span>    <span class="c1"># train the model #
+</span>    <span class="c1">###################
+</span>    <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="c1"># clear the gradients from its state(all optimized variables)
+</span>        <span class="n">optimizer</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="c1"># forward pass: compute the predictions by passing inputs to the model
+</span>        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># calculate the loss
+</span>        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="c1"># backward pass: compute gradient of the loss with respect to each one of the model parameters
+</span>        <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="c1"># perform a single optimization step (parameter update)
+</span>        <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1"># Add running training loss
+</span>        <span class="n">train_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">()</span><span class="o">*</span><span class="n">data</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+             
+    <span class="c1"># average train loss running training loss(loss1*len(batch1)+..+lossn*len(batchn))/num_imgs
+</span>    <span class="n">train_loss</span> <span class="o">=</span> <span class="n">train_loss</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">.</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">train_losses</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_loss</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f"Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s"> Training Loss: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">train_loss</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch: 1 Training Loss: 1.0856
+Epoch: 2 Training Loss: 0.3878
+Epoch: 3 Training Loss: 0.3141
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_losses</span><span class="p">)),</span> <span class="n">train_losses</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'train loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_18_0.png" alt="png" /></p>
+
+<p><a id="save-load"></a></p>
+<h3 id="saving-and-loading-a-model">Saving and Loading a model</h3>
+
+<ul>
+  <li>This step is optional, however it makes sure that the data of your model is saved in a format which you can easily retrieve later on, instead of having to retrain your model.</li>
+  <li>Also helps if you’re training your network online, somewhere where the kernel can be interrupted due to inactivity(like kaggle), in which case saving it at the end will guarantee it a persistent place.</li>
+  <li><strong>Loading</strong>: When you’re loading a state dict into a model, the model has to have the same shapes as the saved state_dict, i.e <strong>you cannot alter the model architecture</strong> after you’ve saved it.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">save_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s">'/kaggle/working/'</span><span class="p">,</span> <span class="n">f_name</span><span class="o">=</span><span class="s">'checkpoint'</span><span class="p">):</span>
+    <span class="s">'''Here</span><span class="se">\'</span><span class="s">s the following information we need to save an intermediary
+    checkpoint from which we can resume later on:
+    1. Model parameters. These are the things that are being optimized in training,
+    so we definitely want to save them and resume from them
+    2. The optimizer also has its own parameters depending on the optimizer: learning rate, momentum, beta, etc.
+    If you want to continue using the same optimizer, you need to save its parameters.
+    Some optimizers like Adam, have adaptive parameters(learning rate), so you need to save a snapshot of it,
+    just like you would save a snapshot of the model parmaeters, if you want to continue training **exactly** from
+    the moment you left off
+    '''</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'network_dict'</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span>
+    <span class="s">'optimizer_dict'</span><span class="p">:</span> <span class="n">optimizer</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span>
+    <span class="s">'epoch'</span><span class="p">:</span> <span class="n">epoch</span>
+    <span class="p">}</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="n">f_name</span> <span class="o">+</span> <span class="s">'.th'</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">load_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">'/kaggle/working/'</span><span class="p">,</span> <span class="n">f_name</span><span class="o">=</span><span class="s">'checkpoint'</span><span class="p">):</span>
+    <span class="s">'''Example of loading it:
+    Make sure model and optiizer are the same
+    model = Net(784, 10)
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+    load_checkpoint(model, optimizer)
+    '''</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="n">f_name</span> <span class="o">+</span> <span class="s">'.th'</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s">'network_dict'</span><span class="p">])</span>
+    <span class="n">optimizer</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s">'optimizer_dict'</span><span class="p">])</span>
+    <span class="n">epoch</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s">'epoch'</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">epoch</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">save_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><a id="test"></a></p>
+<h2 id="test-the-trained-network">Test the Trained Network</h2>
+
+<hr />
+
+<p>Finally, we test our best model on previously unseen <strong>test data</strong> and evaluate it’s performance. Testing on unseen data is a good way to check that our model generalizes well. It may also be useful to be granular in this analysis and take a look at how this model performs on each class as well as looking at its overall loss and accuracy.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># initialize lists to monitor test loss and accuracy
+</span><span class="n">test_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">class_correct</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="mf">0.</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">class_total</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="mf">0.</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span> <span class="c1"># prep model for evaluation
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="c1"># forward pass: compute predicted outputs by passing inputs to the model
+</span>        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># calculate the loss
+</span>        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="c1"># update test loss 
+</span>        <span class="n">test_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">()</span><span class="o">*</span><span class="n">data</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># convert output probabilities to predicted class
+</span>        <span class="n">pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># compare predictions to true label
+</span>        <span class="n">correct</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">eq</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="c1"># calculate test accuracy for each object class
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)):</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">class_correct</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="n">correct</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">class_total</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># calculate and print avg test loss
+</span><span class="n">test_loss</span> <span class="o">=</span> <span class="n">test_loss</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="p">.</span><span class="n">dataset</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">f"Test Loss: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">test_loss</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">class_total</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Test Accuracy of </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s">:</span><span class="se">\
+</span><span class="s">              </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">class_correct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">class_total</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">%</span><span class="se">\
+</span><span class="s">              </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_correct</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">/</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_total</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Test Accuracy of </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s">: N/A (no training examples)"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">f"Test Accuracy (Overall): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mf">100.</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_correct</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_total</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">% </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_correct</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">/</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">class_total</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Test Loss: 0.255297
+
+Test Accuracy of 0:              98.47%              965.0/980.0
+Test Accuracy of 1:              97.53%              1107.0/1135.0
+Test Accuracy of 2:              88.86%              917.0/1032.0
+Test Accuracy of 3:              90.89%              918.0/1010.0
+Test Accuracy of 4:              94.91%              932.0/982.0
+Test Accuracy of 5:              89.46%              798.0/892.0
+Test Accuracy of 6:              94.68%              907.0/958.0
+Test Accuracy of 7:              93.29%              959.0/1028.0
+Test Accuracy of 8:              87.99%              857.0/974.0
+Test Accuracy of 9:              88.5%              893.0/1009.0
+Test Accuracy (Overall): 92.53% 9253.0/10000.0
+</code></pre></div></div>
+
+<p><a id="vizualize-test"></a></p>
+<h4 id="visualize-sample-test-results">Visualize Sample Test Results</h4>
+
+<p>This cell displays test images and their labels in this format: <code class="language-plaintext highlighter-rouge">predicted (ground-truth)</code>. The text will be green for accurately classified examples and red for incorrect predictions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get a batch of examples
+</span><span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+<span class="n">num_per_group</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">num_groups_to_show</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">total_mislabeled_images</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">total_actual_classes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">total_predicted_classes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+    <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">target</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="c1"># pass it through the model, and get the predictions
+</span>    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># get list of classes
+</span>    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="s">'cpu'</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="s">'cpu'</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="s">'cpu'</span><span class="p">)</span>
+
+    <span class="c1"># analyse
+</span>    <span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_data</span><span class="p">.</span><span class="n">classes</span><span class="p">)</span>
+    <span class="n">actual_classes</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="n">labels</span><span class="p">]</span>
+    <span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="n">predictions</span><span class="p">]</span>
+    <span class="c1"># curr format is 0-zero. Get only the 0 char
+</span>    <span class="n">actual_classes</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">actual_classes</span><span class="p">])</span>
+    <span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">predicted_classes</span><span class="p">])</span>
+
+    <span class="n">wrong_indices</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">predicted_classes</span> <span class="o">!=</span> <span class="n">actual_classes</span><span class="p">)</span>
+    <span class="n">mislabeled_images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">wrong_indices</span><span class="p">]</span>
+    
+    
+    <span class="c1"># aggregate everything
+</span>    <span class="n">total_mislabeled_images</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">mislabeled_images</span><span class="p">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="n">total_actual_classes</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">actual_classes</span><span class="p">[</span><span class="n">wrong_indices</span><span class="p">])</span>
+    <span class="n">total_predicted_classes</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">predicted_classes</span><span class="p">[</span><span class="n">wrong_indices</span><span class="p">])</span>
+
+<span class="c1"># display results
+</span><span class="n">total_mislabeled_images</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">total_mislabeled_images</span><span class="p">))</span>
+<span class="n">num_splits</span> <span class="o">=</span> <span class="n">total_mislabeled_images</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">num_per_group</span>
+<span class="n">mislabeled_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">total_mislabeled_images</span><span class="p">[:</span><span class="n">num_splits</span><span class="o">*</span><span class="n">num_per_group</span><span class="p">],</span><span class="n">num_splits</span><span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">mislabeled_list</span><span class="p">:</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">imshow</span><span class="p">(</span><span class="n">group</span><span class="p">);</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"correct classes are:"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">total_actual_classes</span><span class="p">[</span><span class="n">count</span><span class="o">*</span><span class="n">num_per_group</span><span class="p">:(</span><span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">num_per_group</span><span class="p">]));</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"predicted classes are:"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">total_predicted_classes</span><span class="p">[</span><span class="n">count</span><span class="o">*</span><span class="n">num_per_group</span><span class="p">:(</span><span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">num_per_group</span><span class="p">]));</span>
+    <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">num_groups_to_show</span><span class="p">):</span>
+        <span class="k">break</span>
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_0.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['5', '4', '9', '9', '2', '3', '9', '7']
+predicted classes are:['6', '6', '4', '7', '7', '5', '4', '4']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_2.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['2', '9', '6', '8', '9', '3', '4', '6']
+predicted classes are:['9', '4', '5', '7', '8', '5', '2', '0']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_4.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['8', '4', '3', '2', '9', '2', '5', '6']
+predicted classes are:['4', '6', '5', '3', '7', '7', '3', '4']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_6.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['5', '2', '3', '8', '2', '6', '9', '3']
+predicted classes are:['0', '7', '7', '7', '8', '0', '8', '5']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_8.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['6', '5', '9', '8', '5', '3', '4', '3']
+predicted classes are:['5', '8', '3', '0', '3', '5', '8', '6']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_10.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['2', '8', '7', '8', '4', '3', '3', '8']
+predicted classes are:['1', '3', '1', '6', '9', '5', '2', '2']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_12.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['8', '4', '2', '1', '9', '3', '2', '2']
+predicted classes are:['3', '6', '8', '8', '4', '9', '6', '9']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_14.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['7', '8', '4', '8', '0', '5', '2', '2']
+predicted classes are:['3', '4', '9', '5', '6', '8', '8', '8']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_16.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['4', '2', '4', '5', '8', '7', '8', '8']
+predicted classes are:['9', '8', '9', '9', '5', '2', '3', '7']
+</code></pre></div></div>
+
+<p><img src="/mlp-for-mnist_files/mlp-for-mnist_25_18.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>correct classes are:['5', '4', '7', '2', '3', '2', '8', '7']
+predicted classes are:['3', '9', '2', '7', '5', '0', '9', '2']
+</code></pre></div></div>
+
+<p><a id="other-notes"></a></p>
+<h2 id="other-notes">Other Notes</h2>
+
+<hr />
+
+<p><a id="transformers"></a></p>
+<h3 id="transformers">Transformers</h3>
+
+<p>These are common image transformations. <em>They are chained together using <code class="language-plaintext highlighter-rouge">Compose</code></em></p>
+
+<p>Example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="n">transformer</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span>
+        <span class="n">transforms</span><span class="p">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">...,</span> <span class="c1"># any other relevant transforms
+</span>        <span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">(),</span> <span class="c1"># Mandatory!!! always add this at the end
+</span>        <span class="n">transforms</span><span class="p">.</span><span class="n">Normalize</span><span class="p">()</span> <span class="c1"># Mandatory!!!
+</span>
+    <span class="p">])</span>
+</code></pre></div></div>
+
+<p><mark>*Note*: Always use a `transforms.ToTensor()` at the end to convert to a tensor(default unit in Pytorch), and use a `transforms.Normalize` to normalize your tensor.</mark></p>
+
+<h4 id="transformer-examples">Transformer examples</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">transforms.Resize</code>: resize input PIL to given size</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.CenterCrop</code>: crops a PIL image at the center</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.ColorJitter</code>: randomly change brigthness, contrast and saturation of an image</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.FiveCrop</code>: crops given PIL image into 4 cournes and 1 central crop, essentially creating 5 different images.</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.GrayScale</code>: convert to grayscale</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.RandomCrop</code>: crop given PIL image at random location</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.RandomHorizontalFlip/RandomVerticalFlip</code>: randomly flip horizontally/vertically</li>
+  <li><code class="language-plaintext highlighter-rouge">transforms.RandomRotation</code>: rotate the image by a random angle</li>
+</ul>
+
+<h4 id="impact-of-transforms-on-dataset-size">Impact of transforms on dataset size</h4>
+
+<p><a href="https://discuss.pytorch.org/t/how-to-increase-number-of-images-with-data-augmentation/45795">Relevant link</a></p>
+
+<p><strong>Note</strong>: transforms don’t actually increase the size of your dataset, <em>however</em>, <strong>they apply the series of transformatiosn</strong> to every image in a batch, therefore, every time you run the same batch, you will actually get a different set of images. This means that to train your network on more images, simply increase the number of epochs(i.e train it for longer), as the same batch will yield different images every time it’s run, and therefore more training data for the network!.</p>
+
+<h4 id="normalizing-a-transformer">Normalizing a transformer</h4>
+
+<h5 id="why">Why</h5>
+
+<p>By keeping the network inputs close to 0, normalization makes the training process <em>a lot faster</em>. <a href="https://stats.stackexchange.com/questions/185853/why-do-we-need-to-normalize-the-images-before-we-put-them-into-cnn">More in-depth explanation</a></p>
+
+<h6 id="how">How</h6>
+
+<p>From <a href="https://discuss.pytorch.org/t/understanding-transform-normalize/21730">InnovArul</a>:</p>
+
+<blockquote>
+
+  <p>Normalize does the following for each channel:</p>
+
+  <p>image = (image - mean) / std</p>
+
+  <p>The parameters mean, std are passed as 0.5, 0.5 in your case. This will normalize the image in the range [-1,1]. For example, the minimum value 0 will be &gt;converted to (0-0.5)/0.5=-1, the maximum value of 1 will be converted to (1-0.5)/0.5=1.</p>
+
+  <p>if you would like to get your image back in [0,1] range, you could use,</p>
+
+  <p>image = ((image * std) + mean)</p>
+</blockquote>
+
+<p><a id="dataloader"></a></p>
+<h3 id="dataloader">DataLoader</h3>
+
+<ul>
+  <li>Get data in a format that you can use in Pytorch</li>
+  <li>Get an iterator for the data. <code class="language-plaintext highlighter-rouge">DataLoader</code> class is perfect for this. You could just iterate through the data by yourself, but using the DataLoader allows you to very easily select different properties like:
+    <ul>
+      <li>The batch size, i.e how many images or pieces of data you will train your network on in one forward pass. You don’t want to train it on <strong>all</strong> of your data since that will be very computationally heavy, both to do a forward pass, and then respectively a backward one, since you will have to calculate the gradient for much bigger matrices(#TODO: why?). Therefore, we choose a batch size that allows computational efficiency.</li>
+      <li>shuffle: you can easily shuffle all of the images in each batch before you iterate through it. #TODO:explain why</li>
+      <li>drop_last: drop the last batch if incomplete</li>
+      <li>many others</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="speeding-up-dataloader">Speeding Up DataLoader</h4>
+
+<p>From: <a href="https://discuss.pytorch.org/t/why-is-pytorchs-gpu-utilization-so-low-in-production-not-training/38366/4">pytorch forum 1</a>,<a href="https://discuss.pytorch.org/t/gpu-not-fully-used/34102/3">pytorch forum 2</a> :</p>
+<blockquote>
+  <p>If you set pin_memory=True in your DataLoader the data in your Dataset will be loaded into pinned host memory, which makes the transfer to the device faster. Have a look at NVIDIA’s blog post 41 about this topic.</p>
+</blockquote>
+
+<ul>
+  <li>A lot of the times during training, the dataloader seems to take a lot more time than the forward pass.</li>
+  <li>Here’s some things to do to speed things up:
+    <ul>
+      <li>Add: <code class="language-plaintext highlighter-rouge">pin_memory = True</code> to dataloader, and <code class="language-plaintext highlighter-rouge">non_blocking = True</code> to tensor that’s getting data from dataloader</li>
+      <li>Add <code class="language-plaintext highlighter-rouge">non_blocking=True</code> to the tensor.to(). Have to be careful here, cause it’s a bit of a tradeoff since an increase in num_workers will increase RAM. so find a good number from experimentation.</li>
+      <li>Another option, though think about it carefully, is to not shuffle the data, i.e <code class="language-plaintext highlighter-rouge">shuffle=False</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a id="autograd"></a></p>
+<h3 id="autograd">Autograd</h3>
+
+<p>Before we start, here are some explanations of autograd</p>
+
+<ul>
+  <li>A Neural Network does a forward pass, which means it just goes through its architecture, multiplying inputs from the previous layer by weights of current layer, adding bias, modifying result with an activation function to create non-linearity and get the result in a certain range and distribution. This result is then used as the input for the next layer, and on it goes until we reach the final layer. Once we get to the final layer, we calculate the loss function(a function which quantifies the difference between a network’s predictions and target values(what it should have predicted if it was an expert).</li>
+  <li>Once a forward pass is made,i.e a neural network spits out predictions and we calculate the loss for them, Neural network weights are adjusted through backpropagation to <strong>minimize the difference</strong>(loss) between the predictions and correct values.</li>
+  <li>Backpropagation, is essentially just chain rule. Gradients are calculated by traversing the graph from the loss to every leaf in the network and multiply every gradient in the way using chain rule <a href="https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95#:~:text=is%20not%20needed.-,Backward()%20function,gradients%20are%20then%20stored%20in%20.">$^1$</a></li>
+  <li>Pytorch creates the graph at every iteration(when you do a forward pass). Therefore, this allows you to modify the architectures on the go.<a href="https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95#:~:text=is%20not%20needed.-,Backward()%20function,gradients%20are%20then%20stored%20in%20.">$^2$</a></li>
+  <li>Each weight and bias in the network is a <a href="https://pytorch.org/docs/stable/tensors.html">Tensor</a>, which has a <code class="language-plaintext highlighter-rouge">.requires_grad</code> property. When you set the property to <code class="language-plaintext highlighter-rouge">True</code> it becomes part of a graph with all of the tensors that it interacts with (through various operations), and stores the operation that was called on it, so that pytorch can then know how to differentiate. The <em>Autograd</em> package, the one that does differentiation, can differentiate pretty much all functions, so any function encountered in the <code class="language-plaintext highlighter-rouge">.grad_fn</code> of the tensor is doable for it. When you define a model using a <code class="language-plaintext highlighter-rouge">nn.Module</code> class, the <code class="language-plaintext highlighter-rouge">.requires_grad</code> is automatically set for you.</li>
+  <li>Therefore, once <code class="language-plaintext highlighter-rouge">.backward()</code> is called, the gradient is calculated from the loss all the way to each weight and stored, in the <code class="language-plaintext highlighter-rouge">.grad</code> property of each tensor. If you don’t want a tensor being tracked(i.e it won’t store what operations it was produced from), you<a href="http://"></a> can just call <code class="language-plaintext highlighter-rouge">.detach()</code> on it, or wrap the code block(where you do the backward pass) with <code class="language-plaintext highlighter-rouge">torch.no_grad()</code>.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">a</span><span class="p">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"a is: "</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"a grad is: "</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span><span class="p">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"b is"</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"b grad is: "</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"c is"</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"c grad is: "</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"d is"</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"d grad is: "</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"performing backward pass, which will save gradients"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"a grad is: "</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"b grad is: "</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"c grad is: "</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"d grad is: "</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-------------------'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"with history enabled"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"with history disabled, notice tensor has no information on its creation</span><span class="se">\
+</span><span class="s">      , tensors involved in it"</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a is:  tensor([[0.0781, 0.7081],
+        [0.7764, 0.6055],
+        [0.5953, 0.8248]], requires_grad=True)
+a grad is:  None
+b is tensor([[0.6863, 0.0383],
+        [0.5153, 0.2158],
+        [0.2607, 0.4578]], requires_grad=True)
+b grad is:  None
+c is tensor([[1.6071, 2.2009],
+        [3.3599, 2.2480],
+        [2.3074, 3.3902]], grad_fn=&lt;AddBackward0&gt;)
+c grad is:  None
+d is tensor(60.4536, grad_fn=&lt;MulBackward0&gt;)
+d grad is:  None
+performing backward pass, which will save gradients
+a grad is:  tensor([[12., 12.],
+        [12., 12.],
+        [12., 12.]])
+b grad is:  tensor([[8., 8.],
+        [8., 8.],
+        [8., 8.]])
+c grad is:  None
+d grad is:  None
+-------------------
+with history enabled
+tensor([[0.0061, 0.5014],
+        [0.6028, 0.3666],
+        [0.3544, 0.6804]], grad_fn=&lt;PowBackward0&gt;)
+with history disabled, notice tensor has no information on its creation      , tensors involved in it
+tensor([[0.0061, 0.5014],
+        [0.6028, 0.3666],
+        [0.3544, 0.6804]])
+
+
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
+  
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:16: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
+  app.launch_new_instance()
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:21: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:22: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
+</code></pre></div></div>
+
+<p><a id="cuda"></a></p>
+<h2 id="using-cuda">Using CUDA</h2>
+
+<ul>
+  <li>Tensors are data structures, so they have to be stored somewhere on your PC. They are by default stored on the <em>cpu</em>. However, we know that gpus are <strong>much</strong> faster at parallel computations, therefore we want to store them on GPU’s, which will make any operations on them perform <em>much</em>,<em>much faster</em>.</li>
+</ul>
+
+<h3 id="basic-rules-of-devices">Basic rules of devices</h3>
+
+<ul>
+  <li>Tensors <strong>must be on same device</strong> to do an operation(multiplication, subtraction, etc) on them.</li>
+  <li>If an operation between tensors(addition, etc) results in a new tensor, the <strong>new tensor will be stored on same device as the original tensors</strong>. Therefore if <code class="language-plaintext highlighter-rouge">c = a + b</code>, then c will be on same device as a and b are. This means you don’t need to manually move it to the device you intend to use, unless you need to change it.</li>
+</ul>
+
+<h3 id="moving-tensor-to-another-devicecpu-gpu-etc">Moving tensor to another device(cpu, gpu, etc)</h3>
+
+<p><em>Following is heavily inspired from: https://medium.com/ai%C2%B3-theory-practice-business/use-gpu-in-your-pytorch-code-676a67faed09</em></p>
+
+<ul>
+  <li>Since tensors are stored by default on the <em>cpu</em>, you always have to move them over to the <em>gpu</em> if you intend to use it.</li>
+  <li>Every tensor in pytorch has a <code class="language-plaintext highlighter-rouge">to()</code> function, which it uses to put the tensor on a certain device, i.e CPU or specific GPU <a href="https://medium.com/ai%C2%B3-theory-practice-business/use-gpu-in-your-pytorch-code-676a67faed09">$^2$</a>: <code class="language-plaintext highlighter-rouge">el = torch.rand(3,2).to(device)</code></li>
+  <li>You can create the device with a string <em>cpu</em> or <em>cuda:0</em>, based on the avaialability:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  if torch.cuda.is_available():
+      dev = 'cuda:0'
+  else:
+      dev = 'cpu'
+  device = torch.device(dev)
+</code></pre></div>    </div>
+  </li>
+  <li><strong>You can also put the whole network on cuda, since <mark>`nn.module`(the class that your network **has** to inherit) has a `to` and `cuda` function</mark></strong></li>
+</ul>
+
+<h3 id="what-do-you-move-to-cuda">What do you move to cuda</h3>
+
+<p>Short, answer everything. You want to move all of your tensors to CUDA to take full advantage of the GPU, also because you can’t really do operations between 2 tensors if 1 of them is on one device(cpu, or a specific gpu), and second tensor is on a completely different device.</p>
+
+<p>More specifically, you want to move:</p>
+<ul>
+  <li>Entire network, which is done easily with <code class="language-plaintext highlighter-rouge">net = Network().to(device)</code></li>
+  <li>All of the data you use to <em>train</em> and <em>evaluate</em> the network on: <code class="language-plaintext highlighter-rouge">images = images.to(device)</code></li>
+</ul>
+
+<h3 id="important-methods">Important methods:</h3>
+
+<blockquote>
+  <p>For more methods, go here: <a href="https://pytorch.org/docs/stable/cuda.html">pytorch documentation</a></p>
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">torch.cuda.is_available()</code>: test for working install of nvidia with cuda</li>
+    <li><code class="language-plaintext highlighter-rouge">device  = torch.device('cpu'/'cuda:0')</code>: create the device you want(cpu, gpu, etc)</li>
+    <li><code class="language-plaintext highlighter-rouge">a_tensor.to(device)</code>: move tensor to specific device</li>
+    <li><code class="language-plaintext highlighter-rouge">tensor.get_device()</code>: get the tensor the device is running on</li>
+  </ul>
+</blockquote>
+
+  </div><a class="u-url" href="/ai,/ml/2020/10/10/ml-for-mnist.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Your awesome title</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Your awesome title</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
