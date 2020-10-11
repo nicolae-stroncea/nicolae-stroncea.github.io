@@ -3,10 +3,10 @@
   <channel>
     <title></title>
     <description>This is my web box of personal projects, thoughts and ideas I find interesting</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 11 Oct 2020 18:31:32 -0400</pubDate>
-    <lastBuildDate>Sun, 11 Oct 2020 18:31:32 -0400</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 11 Oct 2020 19:15:42 -0400</pubDate>
+    <lastBuildDate>Sun, 11 Oct 2020 19:15:42 -0400</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -883,8 +883,8 @@ tensor([[0.6734, 0.6252],
 &lt;/blockquote&gt;
 </description>
         <pubDate>Sat, 10 Oct 2020 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/blog/ai/cv/tutorial/2020/10/10/mlp-for-mnist.html</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/ai/cv/tutorial/2020/10/10/mlp-for-mnist.html</guid>
+        <link>/blog/ai/cv/tutorial/2020/10/10/mlp-for-mnist.html</link>
+        <guid isPermaLink="true">/blog/ai/cv/tutorial/2020/10/10/mlp-for-mnist.html</guid>
         
         
         <category>blog</category>
@@ -1399,8 +1399,8 @@ For a long time now, I suspected the black screens of my phone and laptop hide w
 &lt;/table&gt;
 </description>
         <pubDate>Wed, 27 May 2020 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/blog/productivity/2020/05/27/black-holes-in-my-room.html</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/productivity/2020/05/27/black-holes-in-my-room.html</guid>
+        <link>/blog/productivity/2020/05/27/black-holes-in-my-room.html</link>
+        <guid isPermaLink="true">/blog/productivity/2020/05/27/black-holes-in-my-room.html</guid>
         
         
         <category>blog</category>
