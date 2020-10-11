@@ -1,5 +1,5 @@
 # Site
-name: Nick Stroncea
+name: InsideFull
 description: This is my web box of personal projects, thoughts and ideas I find interesting
 meta_description: Blog filled with Computer Science, AI, self imrovement, life logging, and CS projects.
 logo: /assets/images/logo.png
@@ -16,7 +16,7 @@ sharethis:
 authors:
   john:
     name: Nick
-    display_name: Nick Stroncea
+    display_name: InsideFull
     image: /assets/images/nick3.jpg
     email: stroncea.nicolae@gmail.com
     web: nicolae-stroncea.github.io

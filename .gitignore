@@ -2,7 +2,6 @@
 .jekyll-cache/
 
 # generated site contents
-_site/
 
 # sass cache
 .sass-cache/*
