@@ -2,7 +2,7 @@
 layout: post
 title:  "MLP For MNIST"
 date:   2020-10-10 14:39:10 -0400
-categories: AI, ML
+categories: AI, ML, Tutorial
 ---
 # MLP for MNIST
 
@@ -184,8 +184,8 @@ print(labels)
 
     
     
-    tensor([5, 1, 8, 9, 1, 6, 9, 9, 6, 0, 7, 6, 0, 0, 9, 3, 6, 1, 2, 0, 0, 4, 0, 9,
-            0, 6, 5, 6, 3, 3, 4, 9])
+    tensor([2, 7, 3, 6, 1, 7, 0, 1, 0, 6, 3, 7, 4, 4, 4, 3, 8, 6, 9, 5, 1, 6, 9, 3,
+            4, 3, 5, 3, 4, 1, 4, 9])
 
 
 ### View an Image in More Detail
@@ -310,7 +310,7 @@ The steps for training/learning from a batch of data are described in the commen
 
 ```python
 # number of epochs to train the model
-n_epochs = 3
+n_epochs = 60
 train_losses = []
 ```
 
@@ -347,9 +347,66 @@ for epoch in range(n_epochs):
     print(f"Epoch: {epoch+1} Training Loss: {round(train_loss,4)}")
 ```
 
-    Epoch: 1 Training Loss: 1.0856
-    Epoch: 2 Training Loss: 0.3878
-    Epoch: 3 Training Loss: 0.3141
+    Epoch: 1 Training Loss: 1.0444
+    Epoch: 2 Training Loss: 0.3886
+    Epoch: 3 Training Loss: 0.3111
+    Epoch: 4 Training Loss: 0.2674
+    Epoch: 5 Training Loss: 0.2302
+    Epoch: 6 Training Loss: 0.2025
+    Epoch: 7 Training Loss: 0.1814
+    Epoch: 8 Training Loss: 0.1628
+    Epoch: 9 Training Loss: 0.1475
+    Epoch: 10 Training Loss: 0.1359
+    Epoch: 11 Training Loss: 0.126
+    Epoch: 12 Training Loss: 0.1165
+    Epoch: 13 Training Loss: 0.109
+    Epoch: 14 Training Loss: 0.1013
+    Epoch: 15 Training Loss: 0.0965
+    Epoch: 16 Training Loss: 0.0899
+    Epoch: 17 Training Loss: 0.0853
+    Epoch: 18 Training Loss: 0.0812
+    Epoch: 19 Training Loss: 0.0765
+    Epoch: 20 Training Loss: 0.0728
+    Epoch: 21 Training Loss: 0.0692
+    Epoch: 22 Training Loss: 0.0658
+    Epoch: 23 Training Loss: 0.0641
+    Epoch: 24 Training Loss: 0.0602
+    Epoch: 25 Training Loss: 0.0576
+    Epoch: 26 Training Loss: 0.0552
+    Epoch: 27 Training Loss: 0.0524
+    Epoch: 28 Training Loss: 0.0502
+    Epoch: 29 Training Loss: 0.0478
+    Epoch: 30 Training Loss: 0.0476
+    Epoch: 31 Training Loss: 0.0445
+    Epoch: 32 Training Loss: 0.0419
+    Epoch: 33 Training Loss: 0.0419
+    Epoch: 34 Training Loss: 0.04
+    Epoch: 35 Training Loss: 0.0382
+    Epoch: 36 Training Loss: 0.0371
+    Epoch: 37 Training Loss: 0.0361
+    Epoch: 38 Training Loss: 0.0347
+    Epoch: 39 Training Loss: 0.0337
+    Epoch: 40 Training Loss: 0.0329
+    Epoch: 41 Training Loss: 0.0304
+    Epoch: 42 Training Loss: 0.0297
+    Epoch: 43 Training Loss: 0.0286
+    Epoch: 44 Training Loss: 0.0278
+    Epoch: 45 Training Loss: 0.0269
+    Epoch: 46 Training Loss: 0.0258
+    Epoch: 47 Training Loss: 0.0254
+    Epoch: 48 Training Loss: 0.0241
+    Epoch: 49 Training Loss: 0.0237
+    Epoch: 50 Training Loss: 0.0231
+    Epoch: 51 Training Loss: 0.022
+    Epoch: 52 Training Loss: 0.0221
+    Epoch: 53 Training Loss: 0.0216
+    Epoch: 54 Training Loss: 0.0198
+    Epoch: 55 Training Loss: 0.0193
+    Epoch: 56 Training Loss: 0.0193
+    Epoch: 57 Training Loss: 0.018
+    Epoch: 58 Training Loss: 0.0183
+    Epoch: 59 Training Loss: 0.0176
+    Epoch: 60 Training Loss: 0.0171
 
 
 
@@ -463,25 +520,25 @@ for i in range(10):
 print(f"Test Accuracy (Overall): {round(100. * np.sum(class_correct) / np.sum(class_total),2)}% {round(np.sum(class_correct),2)}/{round(np.sum(class_total),2)}")
 ```
 
-    Test Loss: 0.255297
+    Test Loss: 0.055891
     
-    Test Accuracy of 0:              98.47%              965.0/980.0
-    Test Accuracy of 1:              97.53%              1107.0/1135.0
-    Test Accuracy of 2:              88.86%              917.0/1032.0
-    Test Accuracy of 3:              90.89%              918.0/1010.0
-    Test Accuracy of 4:              94.91%              932.0/982.0
-    Test Accuracy of 5:              89.46%              798.0/892.0
-    Test Accuracy of 6:              94.68%              907.0/958.0
-    Test Accuracy of 7:              93.29%              959.0/1028.0
-    Test Accuracy of 8:              87.99%              857.0/974.0
-    Test Accuracy of 9:              88.5%              893.0/1009.0
-    Test Accuracy (Overall): 92.53% 9253.0/10000.0
+    Test Accuracy of 0:              98.88%              969.0/980.0
+    Test Accuracy of 1:              99.12%              1125.0/1135.0
+    Test Accuracy of 2:              98.35%              1015.0/1032.0
+    Test Accuracy of 3:              98.42%              994.0/1010.0
+    Test Accuracy of 4:              98.07%              963.0/982.0
+    Test Accuracy of 5:              97.87%              873.0/892.0
+    Test Accuracy of 6:              98.54%              944.0/958.0
+    Test Accuracy of 7:              97.76%              1005.0/1028.0
+    Test Accuracy of 8:              97.54%              950.0/974.0
+    Test Accuracy of 9:              97.62%              985.0/1009.0
+    Test Accuracy (Overall): 98.23% 9823.0/10000.0
 
 
 <a id="vizualize-test"></a>
 #### Visualize Sample Test Results
 
-This cell displays test images and their labels in this format: `predicted (ground-truth)`. The text will be green for accurately classified examples and red for incorrect predictions.
+Below will show the images that the model misclassified
 
 
 ```python
@@ -492,6 +549,8 @@ num_groups_to_show=10
 total_mislabeled_images = []
 total_actual_classes = []
 total_predicted_classes = []
+
+
 for data, target in test_loader:
     images, labels = data.to(device), target.to(device)
 
@@ -540,80 +599,80 @@ for group in mislabeled_list:
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_0.png)
 
 
-    correct classes are:['5', '4', '9', '9', '2', '3', '9', '7']
-    predicted classes are:['6', '6', '4', '7', '7', '5', '4', '4']
+    correct classes are:['4', '4', '2', '5', '6', '4', '8', '8']
+    predicted classes are:['9', '2', '7', '3', '0', '9', '2', '2']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_2.png)
 
 
-    correct classes are:['2', '9', '6', '8', '9', '3', '4', '6']
-    predicted classes are:['9', '4', '5', '7', '8', '5', '2', '0']
+    correct classes are:['1', '2', '2', '7', '8', '5', '9', '3']
+    predicted classes are:['8', '6', '1', '3', '4', '8', '8', '5']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_4.png)
 
 
-    correct classes are:['8', '4', '3', '2', '9', '2', '5', '6']
-    predicted classes are:['4', '6', '5', '3', '7', '7', '3', '4']
+    correct classes are:['8', '5', '1', '6', '6', '7', '6', '4']
+    predicted classes are:['9', '4', '2', '0', '5', '2', '8', '6']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_6.png)
 
 
-    correct classes are:['5', '2', '3', '8', '2', '6', '9', '3']
-    predicted classes are:['0', '7', '7', '7', '8', '0', '8', '5']
+    correct classes are:['7', '6', '6', '2', '7', '9', '4', '9']
+    predicted classes are:['8', '1', '8', '4', '2', '4', '9', '5']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_8.png)
 
 
-    correct classes are:['6', '5', '9', '8', '5', '3', '4', '3']
-    predicted classes are:['5', '8', '3', '0', '3', '5', '8', '6']
+    correct classes are:['5', '8', '7', '5', '2', '9', '7', '7']
+    predicted classes are:['7', '3', '9', '3', '3', '7', '1', '9']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_10.png)
 
 
-    correct classes are:['2', '8', '7', '8', '4', '3', '3', '8']
-    predicted classes are:['1', '3', '1', '6', '9', '5', '2', '2']
+    correct classes are:['8', '4', '9', '2', '0', '3', '8', '7']
+    predicted classes are:['7', '6', '3', '3', '6', '7', '0', '2']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_12.png)
 
 
-    correct classes are:['8', '4', '2', '1', '9', '3', '2', '2']
-    predicted classes are:['3', '6', '8', '8', '4', '9', '6', '9']
+    correct classes are:['8', '9', '7', '0', '8', '7', '5', '4']
+    predicted classes are:['3', '4', '8', '9', '9', '2', '3', '8']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_14.png)
 
 
-    correct classes are:['7', '8', '4', '8', '0', '5', '2', '2']
-    predicted classes are:['3', '4', '9', '5', '6', '8', '8', '8']
+    correct classes are:['4', '7', '2', '3', '4', '6', '1', '0']
+    predicted classes are:['9', '9', '0', '7', '9', '1', '2', '8']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_16.png)
 
 
-    correct classes are:['4', '2', '4', '5', '8', '7', '8', '8']
-    predicted classes are:['9', '8', '9', '9', '5', '2', '3', '7']
+    correct classes are:['8', '9', '5', '9', '9', '6', '2', '2']
+    predicted classes are:['0', '0', '8', '1', '4', '4', '0', '4']
 
 
 
 ![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_18.png)
 
 
-    correct classes are:['5', '4', '7', '2', '3', '2', '8', '7']
-    predicted classes are:['3', '9', '2', '7', '5', '0', '9', '2']
+    correct classes are:['5', '7', '9', '6', '9', '5', '5', '4']
+    predicted classes are:['3', '1', '0', '1', '4', '8', '3', '7']
 
 
 <a id="other-notes"></a>
@@ -757,19 +816,19 @@ with torch.no_grad():
     print(a ** 2)
 ```
 
-    a is:  tensor([[0.0781, 0.7081],
-            [0.7764, 0.6055],
-            [0.5953, 0.8248]], requires_grad=True)
+    a is:  tensor([[0.8206, 0.7907],
+            [0.8502, 0.4337],
+            [0.0565, 0.1204]], requires_grad=True)
     a grad is:  None
-    b is tensor([[0.6863, 0.0383],
-            [0.5153, 0.2158],
-            [0.2607, 0.4578]], requires_grad=True)
+    b is tensor([[0.9155, 0.3124],
+            [0.4046, 0.4165],
+            [0.6241, 0.0017]], requires_grad=True)
     b grad is:  None
-    c is tensor([[1.6071, 2.2009],
-            [3.3599, 2.2480],
-            [2.3074, 3.3902]], grad_fn=<AddBackward0>)
+    c is tensor([[4.2929, 2.9970],
+            [3.3598, 2.1342],
+            [1.4179, 0.3645]], grad_fn=<AddBackward0>)
     c grad is:  None
-    d is tensor(60.4536, grad_fn=<MulBackward0>)
+    d is tensor(58.2649, grad_fn=<MulBackward0>)
     d grad is:  None
     performing backward pass, which will save gradients
     a grad is:  tensor([[12., 12.],
@@ -782,13 +841,13 @@ with torch.no_grad():
     d grad is:  None
     -------------------
     with history enabled
-    tensor([[0.0061, 0.5014],
-            [0.6028, 0.3666],
-            [0.3544, 0.6804]], grad_fn=<PowBackward0>)
+    tensor([[0.6734, 0.6252],
+            [0.7229, 0.1881],
+            [0.0032, 0.0145]], grad_fn=<PowBackward0>)
     with history disabled, notice tensor has no information on its creation      , tensors involved in it
-    tensor([[0.0061, 0.5014],
-            [0.6028, 0.3666],
-            [0.3544, 0.6804]])
+    tensor([[0.6734, 0.6252],
+            [0.7229, 0.1881],
+            [0.0032, 0.0145]])
 
 
     /opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.

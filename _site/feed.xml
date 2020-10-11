@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-10-10T16:53:19-04:00</updated><id>/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">MLP For MNIST</title><link href="/ai,/ml/2020/10/10/ml-for-mnist.html" rel="alternate" type="text/html" title="MLP For MNIST" /><published>2020-10-10T14:39:10-04:00</published><updated>2020-10-10T14:39:10-04:00</updated><id>/ai,/ml/2020/10/10/ml-for-mnist</id><content type="html" xml:base="/ai,/ml/2020/10/10/ml-for-mnist.html">&lt;h1 id=&quot;mlp-for-mnist&quot;&gt;MLP for MNIST&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-10-10T21:40:47-04:00</updated><id>/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">MLP For MNIST</title><link href="/ai,/ml,/tutorial/2020/10/10/mlp-for-mnist.html" rel="alternate" type="text/html" title="MLP For MNIST" /><published>2020-10-10T14:39:10-04:00</published><updated>2020-10-10T14:39:10-04:00</updated><id>/ai,/ml,/tutorial/2020/10/10/mlp-for-mnist</id><content type="html" xml:base="/ai,/ml,/tutorial/2020/10/10/mlp-for-mnist.html">&lt;h1 id=&quot;mlp-for-mnist&quot;&gt;MLP for MNIST&lt;/h1&gt;
 
 &lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: This notebook is &lt;strong&gt;heavily&lt;/strong&gt; based on a &lt;a href=&quot;https://github.com/udacity/deep-learning-v2-pytorch/blob/master/convolutional-neural-networks/mnist-mlp/mnist_mlp_solution.ipynb&quot;&gt;Deep Learning Udacity Notebook&lt;/a&gt;. As a result many of the notes, comments, and code originate from there.&lt;/p&gt;
 
@@ -178,8 +178,8 @@ Done!
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_7_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tensor([5, 1, 8, 9, 1, 6, 9, 9, 6, 0, 7, 6, 0, 0, 9, 3, 6, 1, 2, 0, 0, 4, 0, 9,
-        0, 6, 5, 6, 3, 3, 4, 9])
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tensor([2, 7, 3, 6, 1, 7, 0, 1, 0, 6, 3, 7, 4, 4, 4, 3, 8, 6, 9, 5, 1, 6, 9, 3,
+        4, 3, 5, 3, 4, 1, 4, 9])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;view-an-image-in-more-detail&quot;&gt;View an Image in More Detail&lt;/h3&gt;
@@ -298,7 +298,7 @@ Done!
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# number of epochs to train the model
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_epochs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_epochs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;train_losses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -333,9 +333,66 @@ Done!
     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;f&quot;Epoch: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;epoch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; Training Loss: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train_loss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Epoch: 1 Training Loss: 1.0856
-Epoch: 2 Training Loss: 0.3878
-Epoch: 3 Training Loss: 0.3141
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Epoch: 1 Training Loss: 1.0444
+Epoch: 2 Training Loss: 0.3886
+Epoch: 3 Training Loss: 0.3111
+Epoch: 4 Training Loss: 0.2674
+Epoch: 5 Training Loss: 0.2302
+Epoch: 6 Training Loss: 0.2025
+Epoch: 7 Training Loss: 0.1814
+Epoch: 8 Training Loss: 0.1628
+Epoch: 9 Training Loss: 0.1475
+Epoch: 10 Training Loss: 0.1359
+Epoch: 11 Training Loss: 0.126
+Epoch: 12 Training Loss: 0.1165
+Epoch: 13 Training Loss: 0.109
+Epoch: 14 Training Loss: 0.1013
+Epoch: 15 Training Loss: 0.0965
+Epoch: 16 Training Loss: 0.0899
+Epoch: 17 Training Loss: 0.0853
+Epoch: 18 Training Loss: 0.0812
+Epoch: 19 Training Loss: 0.0765
+Epoch: 20 Training Loss: 0.0728
+Epoch: 21 Training Loss: 0.0692
+Epoch: 22 Training Loss: 0.0658
+Epoch: 23 Training Loss: 0.0641
+Epoch: 24 Training Loss: 0.0602
+Epoch: 25 Training Loss: 0.0576
+Epoch: 26 Training Loss: 0.0552
+Epoch: 27 Training Loss: 0.0524
+Epoch: 28 Training Loss: 0.0502
+Epoch: 29 Training Loss: 0.0478
+Epoch: 30 Training Loss: 0.0476
+Epoch: 31 Training Loss: 0.0445
+Epoch: 32 Training Loss: 0.0419
+Epoch: 33 Training Loss: 0.0419
+Epoch: 34 Training Loss: 0.04
+Epoch: 35 Training Loss: 0.0382
+Epoch: 36 Training Loss: 0.0371
+Epoch: 37 Training Loss: 0.0361
+Epoch: 38 Training Loss: 0.0347
+Epoch: 39 Training Loss: 0.0337
+Epoch: 40 Training Loss: 0.0329
+Epoch: 41 Training Loss: 0.0304
+Epoch: 42 Training Loss: 0.0297
+Epoch: 43 Training Loss: 0.0286
+Epoch: 44 Training Loss: 0.0278
+Epoch: 45 Training Loss: 0.0269
+Epoch: 46 Training Loss: 0.0258
+Epoch: 47 Training Loss: 0.0254
+Epoch: 48 Training Loss: 0.0241
+Epoch: 49 Training Loss: 0.0237
+Epoch: 50 Training Loss: 0.0231
+Epoch: 51 Training Loss: 0.022
+Epoch: 52 Training Loss: 0.0221
+Epoch: 53 Training Loss: 0.0216
+Epoch: 54 Training Loss: 0.0198
+Epoch: 55 Training Loss: 0.0193
+Epoch: 56 Training Loss: 0.0193
+Epoch: 57 Training Loss: 0.018
+Epoch: 58 Training Loss: 0.0183
+Epoch: 59 Training Loss: 0.0176
+Epoch: 60 Training Loss: 0.0171
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train_losses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_losses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'train loss'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -440,25 +497,25 @@ Epoch: 3 Training Loss: 0.3141
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;f&quot;Test Accuracy (Overall): &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;100.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class_correct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;% &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class_correct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Test Loss: 0.255297
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Test Loss: 0.055891
 
-Test Accuracy of 0:              98.47%              965.0/980.0
-Test Accuracy of 1:              97.53%              1107.0/1135.0
-Test Accuracy of 2:              88.86%              917.0/1032.0
-Test Accuracy of 3:              90.89%              918.0/1010.0
-Test Accuracy of 4:              94.91%              932.0/982.0
-Test Accuracy of 5:              89.46%              798.0/892.0
-Test Accuracy of 6:              94.68%              907.0/958.0
-Test Accuracy of 7:              93.29%              959.0/1028.0
-Test Accuracy of 8:              87.99%              857.0/974.0
-Test Accuracy of 9:              88.5%              893.0/1009.0
-Test Accuracy (Overall): 92.53% 9253.0/10000.0
+Test Accuracy of 0:              98.88%              969.0/980.0
+Test Accuracy of 1:              99.12%              1125.0/1135.0
+Test Accuracy of 2:              98.35%              1015.0/1032.0
+Test Accuracy of 3:              98.42%              994.0/1010.0
+Test Accuracy of 4:              98.07%              963.0/982.0
+Test Accuracy of 5:              97.87%              873.0/892.0
+Test Accuracy of 6:              98.54%              944.0/958.0
+Test Accuracy of 7:              97.76%              1005.0/1028.0
+Test Accuracy of 8:              97.54%              950.0/974.0
+Test Accuracy of 9:              97.62%              985.0/1009.0
+Test Accuracy (Overall): 98.23% 9823.0/10000.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a id=&quot;vizualize-test&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;visualize-sample-test-results&quot;&gt;Visualize Sample Test Results&lt;/h4&gt;
 
-&lt;p&gt;This cell displays test images and their labels in this format: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;predicted (ground-truth)&lt;/code&gt;. The text will be green for accurately classified examples and red for incorrect predictions.&lt;/p&gt;
+&lt;p&gt;Below will show the images that the model misclassified&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# get a batch of examples
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -467,6 +524,8 @@ Test Accuracy (Overall): 92.53% 9253.0/10000.0
 &lt;span class=&quot;n&quot;&gt;total_mislabeled_images&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;total_actual_classes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;total_predicted_classes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
@@ -513,62 +572,62 @@ Test Accuracy (Overall): 92.53% 9253.0/10000.0
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['5', '4', '9', '9', '2', '3', '9', '7']
-predicted classes are:['6', '6', '4', '7', '7', '5', '4', '4']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['4', '4', '2', '5', '6', '4', '8', '8']
+predicted classes are:['9', '2', '7', '3', '0', '9', '2', '2']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['2', '9', '6', '8', '9', '3', '4', '6']
-predicted classes are:['9', '4', '5', '7', '8', '5', '2', '0']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['1', '2', '2', '7', '8', '5', '9', '3']
+predicted classes are:['8', '6', '1', '3', '4', '8', '8', '5']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_4.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '4', '3', '2', '9', '2', '5', '6']
-predicted classes are:['4', '6', '5', '3', '7', '7', '3', '4']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '5', '1', '6', '6', '7', '6', '4']
+predicted classes are:['9', '4', '2', '0', '5', '2', '8', '6']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_6.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['5', '2', '3', '8', '2', '6', '9', '3']
-predicted classes are:['0', '7', '7', '7', '8', '0', '8', '5']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['7', '6', '6', '2', '7', '9', '4', '9']
+predicted classes are:['8', '1', '8', '4', '2', '4', '9', '5']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_8.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['6', '5', '9', '8', '5', '3', '4', '3']
-predicted classes are:['5', '8', '3', '0', '3', '5', '8', '6']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['5', '8', '7', '5', '2', '9', '7', '7']
+predicted classes are:['7', '3', '9', '3', '3', '7', '1', '9']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_10.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['2', '8', '7', '8', '4', '3', '3', '8']
-predicted classes are:['1', '3', '1', '6', '9', '5', '2', '2']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '4', '9', '2', '0', '3', '8', '7']
+predicted classes are:['7', '6', '3', '3', '6', '7', '0', '2']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_12.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '4', '2', '1', '9', '3', '2', '2']
-predicted classes are:['3', '6', '8', '8', '4', '9', '6', '9']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '9', '7', '0', '8', '7', '5', '4']
+predicted classes are:['3', '4', '8', '9', '9', '2', '3', '8']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_14.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['7', '8', '4', '8', '0', '5', '2', '2']
-predicted classes are:['3', '4', '9', '5', '6', '8', '8', '8']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['4', '7', '2', '3', '4', '6', '1', '0']
+predicted classes are:['9', '9', '0', '7', '9', '1', '2', '8']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_16.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['4', '2', '4', '5', '8', '7', '8', '8']
-predicted classes are:['9', '8', '9', '9', '5', '2', '3', '7']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['8', '9', '5', '9', '9', '6', '2', '2']
+predicted classes are:['0', '0', '8', '1', '4', '4', '0', '4']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mlp-for-mnist_files/mlp-for-mnist_25_18.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['5', '4', '7', '2', '3', '2', '8', '7']
-predicted classes are:['3', '9', '2', '7', '5', '0', '9', '2']
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;correct classes are:['5', '7', '9', '6', '9', '5', '5', '4']
+predicted classes are:['3', '1', '0', '1', '4', '8', '3', '7']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a id=&quot;other-notes&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -714,19 +773,19 @@ predicted classes are:['3', '9', '2', '7', '5', '0', '9', '2']
     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a is:  tensor([[0.0781, 0.7081],
-        [0.7764, 0.6055],
-        [0.5953, 0.8248]], requires_grad=True)
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a is:  tensor([[0.8206, 0.7907],
+        [0.8502, 0.4337],
+        [0.0565, 0.1204]], requires_grad=True)
 a grad is:  None
-b is tensor([[0.6863, 0.0383],
-        [0.5153, 0.2158],
-        [0.2607, 0.4578]], requires_grad=True)
+b is tensor([[0.9155, 0.3124],
+        [0.4046, 0.4165],
+        [0.6241, 0.0017]], requires_grad=True)
 b grad is:  None
-c is tensor([[1.6071, 2.2009],
-        [3.3599, 2.2480],
-        [2.3074, 3.3902]], grad_fn=&amp;lt;AddBackward0&amp;gt;)
+c is tensor([[4.2929, 2.9970],
+        [3.3598, 2.1342],
+        [1.4179, 0.3645]], grad_fn=&amp;lt;AddBackward0&amp;gt;)
 c grad is:  None
-d is tensor(60.4536, grad_fn=&amp;lt;MulBackward0&amp;gt;)
+d is tensor(58.2649, grad_fn=&amp;lt;MulBackward0&amp;gt;)
 d grad is:  None
 performing backward pass, which will save gradients
 a grad is:  tensor([[12., 12.],
@@ -739,13 +798,13 @@ c grad is:  None
 d grad is:  None
 -------------------
 with history enabled
-tensor([[0.0061, 0.5014],
-        [0.6028, 0.3666],
-        [0.3544, 0.6804]], grad_fn=&amp;lt;PowBackward0&amp;gt;)
+tensor([[0.6734, 0.6252],
+        [0.7229, 0.1881],
+        [0.0032, 0.0145]], grad_fn=&amp;lt;PowBackward0&amp;gt;)
 with history disabled, notice tensor has no information on its creation      , tensors involved in it
-tensor([[0.0061, 0.5014],
-        [0.6028, 0.3666],
-        [0.3544, 0.6804]])
+tensor([[0.6734, 0.6252],
+        [0.7229, 0.1881],
+        [0.0032, 0.0145]])
 
 
 /opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
@@ -808,4 +867,503 @@ tensor([[0.0061, 0.5014],
     &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a_tensor.to(device)&lt;/code&gt;: move tensor to specific device&lt;/li&gt;
     &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tensor.get_device()&lt;/code&gt;: get the tensor the device is running on&lt;/li&gt;
   &lt;/ul&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><category term="AI," /><category term="ML" /><summary type="html">MLP for MNIST</summary></entry></feed>
+&lt;/blockquote&gt;</content><author><name></name></author><category term="AI," /><category term="ML," /><category term="Tutorial" /><summary type="html">MLP for MNIST</summary></entry><entry><title type="html">Black Holes In My Room</title><link href="/2020/05/27/black-holes-in-my-room.html" rel="alternate" type="text/html" title="Black Holes In My Room" /><published>2020-05-27T00:00:00-04:00</published><updated>2020-05-27T00:00:00-04:00</updated><id>/2020/05/27/black-holes-in-my-room</id><content type="html" xml:base="/2020/05/27/black-holes-in-my-room.html">&lt;h1 id=&quot;the-black-holes-in-my-room&quot;&gt;The black holes in my room&lt;/h1&gt;
+
+&lt;h2 id=&quot;the-black-hole-theory&quot;&gt;The Black Hole Theory&lt;/h2&gt;
+
+&lt;!--![The phone as a black hole by Yondr Studio](https://cdn.dribbble.com/users/69311/screenshots/7027845/media/4f763180fca7acb3399667e9fcfec926.jpg)--&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ytimg.com/vi/RMqtoEZBw4c/maxresdefault.jpg&quot; alt=&quot;Picture of austronaut falling into black hole,taken from &amp;quot;Riddle&amp;quot; Youtube Channel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+For a long time now, I suspected the black screens of my phone and laptop hide well-camouflaged black holes. I wake up, take a look at them, and my day just flies by, as if sucked in by some magical, technological force.&lt;/p&gt;
+
+&lt;p&gt;So, I decided to track my digital usage and investigate. One year later I’m looking at the data, and I need to come to terms with a harsh truth: My laptop and phone are undeniably black holes, and I need to fix that.&lt;/p&gt;
+
+&lt;!--  tried everything: I denied their existence, I got angry at them for existing, I even tried to bargain with them.--&gt;
+&lt;p&gt;Here’s the irrefutable evidence:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Any time I get close to them, I get sucked in and end up spending &lt;em&gt;hours on end&lt;/em&gt; browsing the internet, binge-watching a show, or reading the never ending stream of breaking news. (&lt;em&gt;Sidenote&lt;/em&gt;: Why is all news &lt;strong&gt;BREAKING NEWS&lt;/strong&gt; nowadays?)&lt;/li&gt;
+  &lt;li&gt;I wake up and the first thing I look at is my phone: &lt;em&gt;‘Do I have any new messages’&lt;/em&gt;, &lt;em&gt;‘What’s trending in the world’&lt;/em&gt;. Just like that, a chunk of my morning disappears into the black hole. Even during lunch, I will often feel the appealing pull of my laptop, and watch a talk show while I’m eating.&lt;/li&gt;
+  &lt;li&gt;If I have a break during the day, I’ll glance at my phone and scroll through the notifications, and at night, my phone or laptop is often the last interaction I will have with the world.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;At this point, I will take pity on those with a basic understanding of physics: and admit: Ok, they’re not really black holes; after all, it is possible to escape them: If I have some place to be, or an assignment due in the next hour. But they do &lt;em&gt;feel like black holes&lt;/em&gt;, and unfortunately it’s not always easy to escape them.&lt;/p&gt;
+
+&lt;p&gt;Endless newsfeeds of exciting posts, constant push notifications with fun updates, autoplaying the next media piece as I finish the current one, make the web a very engaging and low-effort place for my downtime. Unfortunately, it also makes it too easy to get sucked in. After a while of browsing the web when things were boring, it slowly but surely turned into an unhealthy habit which now consumes a disproportionate amount of time.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-plan&quot;&gt;The Plan&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.washingtonblade.com/content/files/2016/03/30_days_insert_by_Bigstock.jpg&quot; height=&quot;400px&quot; width=&quot;auto&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to curb my digital overuse, I developed a list of habits to follow over the next 30 days:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;No screen-time for the first hour of the day.&lt;/li&gt;
+  &lt;li&gt;No screen-time for the last 30 minutes of my day.&lt;/li&gt;
+  &lt;li&gt;No online distractions (complete ban on browsing reddit + other online distractions).&lt;/li&gt;
+  &lt;li&gt;At most total screen-time of 3 hours a day during the work week (outside of work time) and 9 hours a day during the weekend. &lt;em&gt;This one, I may adjust later on if I see it as too permissive.&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;staying-accountable&quot;&gt;Staying accountable&lt;/h3&gt;
+
+&lt;p&gt;I am using 2 main productivity tools for this goal: &lt;strong&gt;&lt;a href=&quot;https://www.proginosko.com/leechblock/&quot;&gt;LeechBlock&lt;/a&gt; and &lt;a href=&quot;https://activitywatch.net/&quot;&gt;ActivityWatch&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;LeechBlock&lt;/em&gt; is a simple browser extension I use to block websites or set time limits for them. Because browsing some websites has become such an ingrained habit (Youtube, Netflix, Reddit, etc), in times of boredom I often mindlessly navigate to them. LeechBlock will stop me in my tracks when I access them out of habit, and block me from using them completely.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;ActivityWatch&lt;/em&gt; is a free, &lt;a href=&quot;https://www.redhat.com/en/topics/open-source/what-is-open-source&quot;&gt;open-source&lt;/a&gt;, computer program which tracks how I spend my time digitally, and displays it in an easy way to digest.&lt;!--The data is only stored locally on your devices, so it is fully secure, and is never shared with anybody.--&gt; I used them to analyze the extent of my bad digital habits.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I wrote a small computer script which &lt;strong&gt;will automatically analyze the data from ActivityWatch, and post my progress online (in this blogpost) for each of the 4 goals, every day, for the next 30 days&lt;/strong&gt;. &lt;em&gt;Yes, I could just update the blog manually, but where’s the fun in that?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Starting today :)&lt;/p&gt;
+
+&lt;h2 id=&quot;my-progress&quot;&gt;My Progress&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Date&lt;/th&gt;
+      &lt;th&gt;Morning Screen Time&lt;/th&gt;
+      &lt;th&gt;Night screen time&lt;/th&gt;
+      &lt;th&gt;Online distractions&lt;/th&gt;
+      &lt;th&gt;Screen-time amount&lt;/th&gt;
+      &lt;th&gt;Planning check&lt;/th&gt;
+      &lt;th&gt;Timesinks check&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 26, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 27, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 28, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 29, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 30, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;May 31, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 01, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 02, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 03, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 04, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 05, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 06, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 07, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 08, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 09, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 10, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 11, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 12, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 13, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 14, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 15, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 16, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 17, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 18, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 19, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 20, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 21, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 22, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 23, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 24, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 25, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 26, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 27, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 28, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 29, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 30, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 01, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 02, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 02, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 03, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 04, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 05, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 06, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 07, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 08, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 09, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 10, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 11, 2020&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;success&quot;&gt;Pass&lt;/span&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;span class=&quot;fail&quot;&gt;Fail&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><summary type="html">The black holes in my room</summary></entry></feed>
