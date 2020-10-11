@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "MLP For MNIST"
-date:   2020-10-10 14:39:10 -0400
-categories: AI, ML, Tutorial
+cover:  assets/images/mnist.png
+title:  MLP For MNIST
+categories: blog AI CV Tutorial
 ---
-# MLP for MNIST
+<!--# MLP for MNIST-->
 
 *Note*: This notebook is **heavily** based on a [Deep Learning Udacity Notebook](https://github.com/udacity/deep-learning-v2-pytorch/blob/master/convolutional-neural-networks/mnist-mlp/mnist_mlp_solution.ipynb). As a result many of the notes, comments, and code originate from there.
 
@@ -66,7 +66,7 @@ if torch.cuda.is_available():
     device = 'cuda:0'
 else:
     device = 'cpu'
-    
+
 device
 
 # notice that tensor right now says that it is on cuda
@@ -101,7 +101,7 @@ test_data = datasets.MNIST(root='data', train=False,
 # prepare data loaders
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size,
     num_workers=num_workers, shuffle=True)
-test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, 
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size,
     num_workers=num_workers)
 ```
 
@@ -122,7 +122,7 @@ test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size,
 
     Extracting data/MNIST/raw/train-labels-idx1-ubyte.gz to data/MNIST/raw
     Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to data/MNIST/raw/t10k-images-idx3-ubyte.gz
-    
+
 
 
 
@@ -172,18 +172,18 @@ print(labels)
 
 ```
 
-    
-    
-    
-    
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_7_1.png)
 
 
-    
-    
+
+
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_7_1.png)
+
+
+
+
     tensor([2, 7, 3, 6, 1, 7, 0, 1, 0, 6, 3, 7, 4, 4, 4, 3, 8, 6, 9, 5, 1, 6, 9, 3,
             4, 3, 5, 3, 4, 1, 4, 9])
 
@@ -194,7 +194,7 @@ print(labels)
 ```python
 img = np.squeeze(images[1])
 
-fig = plt.figure(figsize = (12,12)) 
+fig = plt.figure(figsize = (12,12))
 ax = fig.add_subplot(111)
 ax.imshow(img, cmap='gray')
 width, height = img.shape
@@ -209,7 +209,7 @@ for x in range(width):
 ```
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_9_0.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_9_0.png)
 
 
 <a id="architecture"></a>
@@ -321,7 +321,7 @@ model.train() # prep model for training
 for epoch in range(n_epochs):
     # monitor training loss
     train_loss = 0.0
-    
+
     ###################
     # train the model #
     ###################
@@ -340,7 +340,7 @@ for epoch in range(n_epochs):
         optimizer.step()
         # Add running training loss
         train_loss += loss.item()*data.shape[0]
-             
+
     # average train loss running training loss(loss1*len(batch1)+..+lossn*len(batchn))/num_imgs
     train_loss = train_loss/len(train_loader.dataset)
     train_losses.append(train_loss)
@@ -417,7 +417,7 @@ plt.show()
 ```
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_18_0.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_18_0.png)
 
 
 <a id="save-load"></a>
@@ -492,7 +492,7 @@ with torch.no_grad():
         output = model(data)
         # calculate the loss
         loss = criterion(output, target)
-        # update test loss 
+        # update test loss
         test_loss += loss.item()*data.shape[0]
         # convert output probabilities to predicted class
         pred = torch.argmax(output,1)
@@ -521,7 +521,7 @@ print(f"Test Accuracy (Overall): {round(100. * np.sum(class_correct) / np.sum(cl
 ```
 
     Test Loss: 0.055891
-    
+
     Test Accuracy of 0:              98.88%              969.0/980.0
     Test Accuracy of 1:              99.12%              1125.0/1135.0
     Test Accuracy of 2:              98.35%              1015.0/1032.0
@@ -573,8 +573,8 @@ for data, target in test_loader:
 
     wrong_indices = np.where(predicted_classes != actual_classes)
     mislabeled_images = images[wrong_indices]
-    
-    
+
+
     # aggregate everything
     total_mislabeled_images.append(mislabeled_images.numpy())
     total_actual_classes.extend(actual_classes[wrong_indices])
@@ -596,7 +596,7 @@ for group in mislabeled_list:
 ```
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_0.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_0.png)
 
 
     correct classes are:['4', '4', '2', '5', '6', '4', '8', '8']
@@ -604,7 +604,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_2.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_2.png)
 
 
     correct classes are:['1', '2', '2', '7', '8', '5', '9', '3']
@@ -612,7 +612,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_4.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_4.png)
 
 
     correct classes are:['8', '5', '1', '6', '6', '7', '6', '4']
@@ -620,7 +620,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_6.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_6.png)
 
 
     correct classes are:['7', '6', '6', '2', '7', '9', '4', '9']
@@ -628,7 +628,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_8.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_8.png)
 
 
     correct classes are:['5', '8', '7', '5', '2', '9', '7', '7']
@@ -636,7 +636,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_10.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_10.png)
 
 
     correct classes are:['8', '4', '9', '2', '0', '3', '8', '7']
@@ -644,7 +644,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_12.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_12.png)
 
 
     correct classes are:['8', '9', '7', '0', '8', '7', '5', '4']
@@ -652,7 +652,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_14.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_14.png)
 
 
     correct classes are:['4', '7', '2', '3', '4', '6', '1', '0']
@@ -660,7 +660,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_16.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_16.png)
 
 
     correct classes are:['8', '9', '5', '9', '9', '6', '2', '2']
@@ -668,7 +668,7 @@ for group in mislabeled_list:
 
 
 
-![png]({{ site.baseurl }}/mlp-for-mnist_files/mlp-for-mnist_25_18.png)
+![png]({{ site.baseurl }}/assets/images/mlp-for-mnist_files/mlp-for-mnist_25_18.png)
 
 
     correct classes are:['5', '7', '9', '6', '9', '5', '5', '4']
@@ -703,8 +703,8 @@ Example:
 
 * `transforms.Resize`: resize input PIL to given size
 * `transforms.CenterCrop`: crops a PIL image at the center
-* `transforms.ColorJitter`: randomly change brigthness, contrast and saturation of an image 
-* `transforms.FiveCrop`: crops given PIL image into 4 cournes and 1 central crop, essentially creating 5 different images. 
+* `transforms.ColorJitter`: randomly change brigthness, contrast and saturation of an image
+* `transforms.FiveCrop`: crops given PIL image into 4 cournes and 1 central crop, essentially creating 5 different images.
 * `transforms.GrayScale`: convert to grayscale
 * `transforms.RandomCrop`: crop given PIL image at random location
 * `transforms.RandomHorizontalFlip/RandomVerticalFlip`: randomly flip horizontally/vertically
@@ -776,7 +776,7 @@ From: [pytorch forum 1](https://discuss.pytorch.org/t/why-is-pytorchs-gpu-utiliz
 
 Before we start, here are some explanations of autograd
 
-* A Neural Network does a forward pass, which means it just goes through its architecture, multiplying inputs from the previous layer by weights of current layer, adding bias, modifying result with an activation function to create non-linearity and get the result in a certain range and distribution. This result is then used as the input for the next layer, and on it goes until we reach the final layer. Once we get to the final layer, we calculate the loss function(a function which quantifies the difference between a network's predictions and target values(what it should have predicted if it was an expert). 
+* A Neural Network does a forward pass, which means it just goes through its architecture, multiplying inputs from the previous layer by weights of current layer, adding bias, modifying result with an activation function to create non-linearity and get the result in a certain range and distribution. This result is then used as the input for the next layer, and on it goes until we reach the final layer. Once we get to the final layer, we calculate the loss function(a function which quantifies the difference between a network's predictions and target values(what it should have predicted if it was an expert).
 * Once a forward pass is made,i.e a neural network spits out predictions and we calculate the loss for them, Neural network weights are adjusted through backpropagation to **minimize the difference**(loss) between the predictions and correct values.
 * Backpropagation, is essentially just chain rule. Gradients are calculated by traversing the graph from the loss to every leaf in the network and multiply every gradient in the way using chain rule [$^1$](https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95#:~:text=is%20not%20needed.-,Backward()%20function,gradients%20are%20then%20stored%20in%20.)
 * Pytorch creates the graph at every iteration(when you do a forward pass). Therefore, this allows you to modify the architectures on the go.[$^2$](https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95#:~:text=is%20not%20needed.-,Backward()%20function,gradients%20are%20then%20stored%20in%20.)
@@ -851,7 +851,7 @@ with torch.no_grad():
 
 
     /opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
-      
+
     /opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:16: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
       app.launch_new_instance()
     /opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:21: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the gradient for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations.
@@ -861,12 +861,12 @@ with torch.no_grad():
 <a id="cuda"></a>
 ## Using CUDA
 
-* Tensors are data structures, so they have to be stored somewhere on your PC. They are by default stored on the *cpu*. However, we know that gpus are **much** faster at parallel computations, therefore we want to store them on GPU's, which will make any operations on them perform *much*,*much faster*. 
+* Tensors are data structures, so they have to be stored somewhere on your PC. They are by default stored on the *cpu*. However, we know that gpus are **much** faster at parallel computations, therefore we want to store them on GPU's, which will make any operations on them perform *much*,*much faster*.
 
 ### Basic rules of devices
 
-* Tensors **must be on same device** to do an operation(multiplication, subtraction, etc) on them. 
-* If an operation between tensors(addition, etc) results in a new tensor, the **new tensor will be stored on same device as the original tensors**. Therefore if `c = a + b`, then c will be on same device as a and b are. This means you don't need to manually move it to the device you intend to use, unless you need to change it. 
+* Tensors **must be on same device** to do an operation(multiplication, subtraction, etc) on them.
+* If an operation between tensors(addition, etc) results in a new tensor, the **new tensor will be stored on same device as the original tensors**. Therefore if `c = a + b`, then c will be on same device as a and b are. This means you don't need to manually move it to the device you intend to use, unless you need to change it.
 
 ### Moving tensor to another device(cpu, gpu, etc)
 

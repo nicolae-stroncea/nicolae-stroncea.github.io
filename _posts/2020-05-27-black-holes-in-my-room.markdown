@@ -1,9 +1,14 @@
-# The black holes in my room
-
-## The Black Hole Theory
+---
+layout: post
+cover:  assets/images/black_holes.jpg
+title:  The black holes in my room
+categories: blog Productivity
+<!-- author: nick -->
+---
+<!--## The Black Hole Theory-->
 
 <!--![The phone as a black hole by Yondr Studio](https://cdn.dribbble.com/users/69311/screenshots/7027845/media/4f763180fca7acb3399667e9fcfec926.jpg)-->
-![Picture of austronaut falling into black hole,taken from "Riddle" Youtube Channel](https://i.ytimg.com/vi/RMqtoEZBw4c/maxresdefault.jpg)
+<!--![Picture of austronaut falling into black hole,taken from "Riddle" Youtube Channel](https://i.ytimg.com/vi/RMqtoEZBw4c/maxresdefault.jpg)-->
 
 <br>
 For a long time now, I suspected the black screens of my phone and laptop hide well-camouflaged black holes. I wake up, take a look at them, and my day just flies by, as if sucked in by some magical, technological force.
@@ -12,13 +17,13 @@ So, I decided to track my digital usage and investigate. One year later I'm look
 
 <!--  tried everything: I denied their existence, I got angry at them for existing, I even tried to bargain with them.-->
  Here's the irrefutable evidence:
-  
+
 * Any time I get close to them, I get sucked in and end up spending *hours on end* browsing the internet, binge-watching a show, or reading the never ending stream of breaking news. (*Sidenote*: Why is all news **BREAKING NEWS** nowadays?)
 * I wake up and the first thing I look at is my phone: *'Do I have any new messages'*, *'What's trending in the world'*. Just like that, a chunk of my morning disappears into the black hole. Even during lunch, I will often feel the appealing pull of my laptop, and watch a talk show while I'm eating.
 * If I have a break during the day, I'll glance at my phone and scroll through the notifications, and at night, my phone or laptop is often the last interaction I will have with the world.
 
 At this point, I will take pity on those with a basic understanding of physics: and admit: Ok, they're not really black holes; after all, it is possible to escape them: If I have some place to be, or an assignment due in the next hour. But they do *feel like black holes*, and unfortunately it's not always easy to escape them.
-  
+
 Endless newsfeeds of exciting posts, constant push notifications with fun updates, autoplaying the next media piece as I finish the current one, make the web a very engaging and low-effort place for my downtime. Unfortunately, it also makes it too easy to get sucked in. After a while of browsing the web when things were boring, it slowly but surely turned into an unhealthy habit which now consumes a disproportionate amount of time.
 
 
