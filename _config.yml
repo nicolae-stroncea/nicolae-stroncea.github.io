@@ -43,6 +43,9 @@ jekyll-archives:
 markdown: kramdown
 highlighter: rouge
 
+include:
+ - _pages
+
 # SEO
 # twitter:
 #   username: john
