@@ -2,7 +2,8 @@
 layout: post
 cover:  assets/images/mnist.png
 title:  MLP For MNIST
-categories: blog AI CV Tutorial
+categories: [ blog, AI, Tutorial ]
+comments: true
 ---
 <!--# MLP for MNIST-->
 

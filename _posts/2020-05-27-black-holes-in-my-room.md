@@ -2,8 +2,8 @@
 layout: post
 cover:  assets/images/black_holes.jpg
 title:  The black holes in my room
-categories: blog Productivity
-<!-- author: nick -->
+categories: [ blog, Productivity ]
+comments: true
 ---
 <!--## The Black Hole Theory-->
 
