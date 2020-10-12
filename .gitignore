@@ -3,6 +3,7 @@
 
 # generated site contents
 _site/
+_original_pictures/
 
 # sass cache
 .sass-cache/*
