@@ -5,7 +5,41 @@ title:  The black holes in my room
 categories: [ blog, Productivity ]
 comments: true
 ---
-<!--## The Black Hole Theory-->
+<style>
+
+  table{
+      border-collapse: collapse;
+      border-spacing: 0;
+      <!-- border:2px solid #000000; -->
+  }
+
+  th{
+      border: 2px solid #000000;
+  }
+
+  td{
+      border: 1px solid #000000;
+  }
+
+  .success {
+  	color: green;
+  }
+
+  .fail {
+  	color: red;
+  }
+
+</style>
+
+# Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
+## The Black Hole Theory
 
 <!--![The phone as a black hole by Yondr Studio](https://cdn.dribbble.com/users/69311/screenshots/7027845/media/4f763180fca7acb3399667e9fcfec926.jpg)-->
 <!--![Picture of austronaut falling into black hole,taken from "Riddle" Youtube Channel](https://i.ytimg.com/vi/RMqtoEZBw4c/maxresdefault.jpg)-->
@@ -54,8 +88,8 @@ Starting today :)
 ## My Progress
 
 
-|Date|Morning Screen Time|Night screen time|Online distractions| Screen-time amount | Planning check | Timesinks check |
-|----|----|--------|-----|---|---|---|
+| Date | Morning Screen Time | Night screen time | Online distractions | Screen-time amount | Planning check | Timesinks check
+|---|---|---|---|---|---|---|
 |May 26, 2020|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|
 |May 27, 2020|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|
 |May 28, 2020|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|<span class='success'>Pass</span>|

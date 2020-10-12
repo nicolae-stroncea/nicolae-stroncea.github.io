@@ -7,7 +7,7 @@ comments: true
 ---
 <!--# MLP for MNIST-->
 
-*Note*: This notebook is **heavily** based on a [Deep Learning Udacity Notebook](https://github.com/udacity/deep-learning-v2-pytorch/blob/master/convolutional-neural-networks/mnist-mlp/mnist_mlp_solution.ipynb). As a result many of the notes, comments, and code originate from there.
+*Note*: This notebook is based on a [Deep Learning Udacity Notebook](https://github.com/udacity/deep-learning-v2-pytorch/blob/master/convolutional-neural-networks/mnist-mlp/mnist_mlp_solution.ipynb). As a result many of the notes, comments, and code can originate from there.
 
 In this notebook, we will train an MLP to classify images from the [MNIST database](http://yann.lecun.com/exdb/mnist/) hand-written digit database.
 
