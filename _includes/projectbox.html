@@ -1,0 +1,35 @@
+<!-- begin project -->
+{% assign author = site.authors[project.author] %}
+
+<div class="col-md-6 grid-item">
+    <div class="card">
+        <a href="{{ project.url | absolute_url }}">
+            {% if project.image %} <img class="img-fluid"
+                                     src="{{ site.baseurl }}/{{ project.image }}"
+                                     alt="{{ project.name }}"> {% endif %}
+        </a>
+        <div class="card-block">
+            <h2 class="card-title"><a href="{{ project.url | absolute_url }}">{{
+                project.name }}</a></h2>
+            <h4 class="card-text">{{ project.description | strip_html |
+                truncatewords:30 }}</h4>
+            <div class="metafooter">
+                <div class="wrapfooter">
+                    {% if project.author %}
+                    <span class="meta-footer-thumb">
+                <img class="author-thumb" src="{{ author.image }}"
+                     alt="{{ author.display_name }}">
+                </span>
+                    <span class="author-meta">
+                <span class="project-name"><a target="_blank"
+                                           href="{{ author.web | absolute_url }}">{{ author.display_name }}</a></span><br/>
+                {% endif %}
+                <span class="project-date">{{ project.date | date_to_string }}</span>
+                </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end project -->

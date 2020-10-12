@@ -14,12 +14,12 @@ sharethis:
 
 # Authors
 authors:
-  john:
+  nick:
     name: Nick
-    display_name: InsideFull
+    display_name: Nick
     image: /assets/images/nick.jpg
     email: stroncea.nicolae@gmail.com
-    web: nicolae-stroncea.github.io
+    web: www.nicolae-stroncea.github.io
     twitter:
     description:
 

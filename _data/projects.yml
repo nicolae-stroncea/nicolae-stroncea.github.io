@@ -1,0 +1,24 @@
+- name: Emergency Room Simulator
+  description: Highly configurable emergency room simulator. Can be used by medical professionals/researchers to determine bottlenecks and areas in the emergency room which would benefit most from added resources.
+  url: https://github.com/ER-Visualizer/Visualizer
+  image: assets/images/projects/vizualizer.png
+
+- name: Volunteerly
+  description: Help organizations in a community connect with volunteers. Help people interested in making an impact find events near them based on their schedule.
+  url: https://github.com/SimranS224/Volunteerly
+  image: assets/images/projects/volunteerly.png
+
+- name: ActivityWatch
+  description: Top 5 contributer to privacy-first, open-source time tracker. Software records what you do and gives you the tools to analyze your behaviour and find meaningful patterns.
+  url: https://github.com/activitywatch/activitywatch
+  image: assets/images/projects/activitywatch.png
+
+- name: Timetable Scheduler
+  description: "Generate the ideal course timetable based on your preferences: choose your preferred time of day, max number of classes, breaks between classes, favourite professors, etc."
+  url: https://github.com/nicolae-stroncea/AndroidTimeTableScheduler
+  image: assets/images/projects/timetable.jpg
+
+- name: CrowdDash
+  description: Make communities safer by giving drivers the ability to instantly report dangerous behavior through a voice-controlled app dashcam.
+  url: https://github.com/SimranS224/CrowdDash
+  image: assets/images/projects/crowddash.jpg
