@@ -4,14 +4,14 @@
 <div class="col-md-6 grid-item">
     <div class="card">
         <a href="{{ project.url | absolute_url }}">
-            {% if project.image %} <img class="img-fluid"
-                                     src="{{ site.baseurl }}/{{ project.image }}"
-                                     alt="{{ project.name }}"> {% endif %}
+            {% if project.cover %} <img class="img-fluid"
+                                     src="{{ site.baseurl }}/{{ project.cover }}"
+                                     alt="{{ project.title }}"> {% endif %}
         </a>
         <div class="card-block">
             <h2 class="card-title"><a href="{{ project.url | absolute_url }}">{{
-                project.name }}</a></h2>
-            <h4 class="card-text">{{ project.description | strip_html |
+                project.title }}</a></h2>
+            <h4 class="card-text">{{ project.excerpt | strip_html |
                 truncatewords:30 }}</h4>
             <div class="metafooter">
                 <div class="wrapfooter">
