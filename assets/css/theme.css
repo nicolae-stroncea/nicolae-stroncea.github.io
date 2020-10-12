@@ -433,7 +433,13 @@ span.post-name a, span.post-read-more a:hover {
 
 @media (min-width: 992px) {
   .intro-text {
-    max-width:35%;
+    max-width:38%;
+  }
+}
+
+@media (max-width: 576px) {
+  .intro-text {
+    max-width:80%;
   }
 }
 
