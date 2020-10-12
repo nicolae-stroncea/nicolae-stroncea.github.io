@@ -1,13 +1,13 @@
 # Site
 name: InsideFull
 description: This is my web box of personal projects, thoughts and ideas I find interesting
-meta_description: Blog filled with Computer Science, AI, self imrovement, life logging, and CS projects.
+meta_description: Blog filled with Computer Science, AI, self improvement, life logging, and CS projects.
 logo: /assets/images/logo.png
 favicon: /assets/images/favicon.ico
 paginate: 6
 baseurl:
 email: 'stroncea.nicolae@gmail.com'
-google_analytics:
+google_analytics: UA-180310035-1
 # google_analytics: UA-103662447-9
 disqus:
 sharethis:
@@ -54,9 +54,9 @@ highlighter: rouge
 #   admins:
 
 social:
-name: Nick Stroncea
-links:
-    # - https://twitter.com/
-    # - https://www.facebook.com/
-    - https://www.linkedin.com/in/nicolae-stroncea
-    - https://github.com/in/nicolae-stroncea
+  name: Nick Stroncea
+  links:
+      # - https://twitter.com/
+      # - https://www.facebook.com/
+      - https://www.linkedin.com/in/nicolae-stroncea
+      - https://github.com/in/nicolae-stroncea
