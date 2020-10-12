@@ -401,7 +401,14 @@ span.post-name a, span.post-read-more a:hover {
 }
 
 .intro {
-    background: linear-gradient(#fdfbfb 0%, #ebedee 100%);
+    /* background: linear-gradient(#fdfbfb 0%, #ebedee 100%); */
+    /* background-image: url(/assets/images/background.jpg); */
+    /* background-size: cover; */
+    /* background: #E7E3D4;
+    background: #CCCCCC;
+    background: #e7eaeb;
+    background: #e7e9eb; */
+    background: #ECECEC;
     padding-top: 8rem;
     padding-bottom: 4rem;
     margin-top: -87px;
@@ -409,8 +416,25 @@ span.post-name a, span.post-read-more a:hover {
     text-align: center;
 }
 .intro-text {
-  max-width: 40%;
+  max-width: 60%;
   margin: 0 auto;
+  /* display: inline-block; */
+}
+.intro-text h5 {
+  color: #282828;
+  /* color: #F0F0F0; */
+}
+.intro-text h1 {
+  color:#202020;
+  color: #101010;
+  /* color: #F5F5F5; */
+
+}
+
+@media (min-width: 992px) {
+  .intro-text {
+    max-width:35%;
+  }
 }
 
 .intro .btn {
