@@ -401,13 +401,16 @@ span.post-name a, span.post-read-more a:hover {
 }
 
 .intro {
-    background-image: url(/assets/images/background.jpg);
-    background-size: cover;
-    padding: 9rem 0;
+    background: linear-gradient(#fdfbfb 0%, #ebedee 100%);
+    padding-top: 8rem;
+    padding-bottom: 4rem;
     margin-top: -87px;
-    margin-bottom: 3.5rem;
-    z-index: 1;
-    position: relative;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+.intro-text {
+  max-width: 40%;
+  margin: 0 auto;
 }
 
 .intro .btn {
