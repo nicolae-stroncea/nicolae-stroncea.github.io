@@ -443,7 +443,7 @@ span.post-name a, span.post-read-more a:hover {
   }
 }
 
-#favouriteProjects a {
+.seeAll a {
   color: black;
   background: rgba(0, 0, 0, .07);
 }

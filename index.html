@@ -35,8 +35,8 @@ permalink:
         <!-- Featured
         ================================================== -->
         <section class="featured-posts">
-            <div class="section-title" id="favouriteProjects">
-                <h2><span>Favourite Projects (<a  href="/projects/">See all</a>)</span></h2>
+            <div class="section-title seeAll">
+                <h2><span>Favourite Projects (<a href="{{ site.baseurl }}/projects/">See all</a>)</span></h2>
             </div>
             <div class="row listfeaturedtag">
                 {% for post in site.data.projects%}
@@ -56,8 +56,8 @@ permalink:
         {% endif %}
         <section class="recent-posts row">
             <div class="col-sm-12">
-                <div class="section-title">
-                    <h2><span>Blog Posts</span></h2>
+                <div class="section-title seeAll">
+                    <h2><span>Blog Posts (<a  href="{{ site.baseurl }}/category/blog/">See all</a>)</span></h2>
                 </div>
                 <div class="masonrygrid row listrecent">
                     {% for post in paginator.posts %}
