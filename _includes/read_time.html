@@ -1,0 +1,14 @@
+{% comment %}
+{% capture words %}
+{{ content | number_of_words | minus: 180 }}
+{% endcapture %}
+{% unless words contains '-' %}
+{{ words | plus: 150 | divided_by: 150 | append: ' minutes to read' }}
+{% endunless %}
+{% endcomment %}
+
+<!-- used to be 180, I changed it to 265 as per medium recommendations: https://int3ractive.com/blog/2018/jekyll-read-time-without-plugins/ -->
+<span style="color:gray" title="Estimated read time">
+    {% assign words = include.content | strip_html | number_of_words %}
+    {{ words | divided_by: 265 | plus: 1 }} minutes to read
+</span>
