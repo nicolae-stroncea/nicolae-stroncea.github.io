@@ -1,7 +1,7 @@
 ---
 layout: post
 cover:  assets/images/declutter_websites/before_and_after_youtube.jpg
-title:  Give social media websites a productive facelift
+title:  Give social media websites a productive redesign
 categories: [ blog, productivity ]
 comments: true
 ---
