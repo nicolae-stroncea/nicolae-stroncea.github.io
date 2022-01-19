@@ -67,7 +67,7 @@ Change *reddit.com* for *old.reddit.com*. This takes you back to Reddit's old de
 
 ![Facebook and LinkedIn on *LeechBlock*](/assets/images/declutter_websites/merged_leechblock.jpg)
 
-Alternatively you can download [this file with configurations already set](/assets/other_files/LeechBlockOptions.txt), and then import it into the extension by following the steps below.
+Alternatively you can download [this file with configurations already set](/assets/extra/LeechBlockOptions.txt), and then import it into the extension by following the steps below.
 
 ![Importing settings file into *LeechBlock*](/assets/images/declutter_websites/annotated_leechblock.jpg){: width="350" }
 <!-- <img src="/assets/images/declutter_websites/annotated_leechblock.jpg" alt="Importing settings file into *LeechBlock*" width="300"/> -->
