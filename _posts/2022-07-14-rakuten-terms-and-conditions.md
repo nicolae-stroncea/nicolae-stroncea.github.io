@@ -12,7 +12,7 @@ comments: true
 
 The [Rakuten Cashback app](https://chrome.google.com/webstore/detail/rakuten-get-cash-back-for/chhjbpecpncaggjpdakmflnfcopglcmi) is a popular browser extension that applies discounts when you shop online and gives you cash back on your purchases. **For Free!** I know what you're thinking: "So you're saying there's a company out there that will save me money out of the goodness of their corporate hearts? I would be a fool not to!". But before you click *Install* and skip the 6000-words-long [Privacy Policy pt.1](https://web.archive.org/web/20220709105501/https://www.rakuten.com/help/article/privacy-policy-360002101688) and [Privacy Policy pt.2](https://web.archive.org/web/20220217095516/https://www.rakuten.com/help/article/rakuten-cash-back-button-privacy-notice-360052819794), find out what's in the sausage and why your dog refuses to eat it.
 
-*Obligatory Disclaimer*: Not a lawyer, hold basic reading comprehension skills (i.e the legalese is way over my head), my opinions and interpretations may be wrong.
+*Obligatory Disclaimer*: Not a lawyer, hold basic reading comprehension skills (i.e the legalese is way over my head), everything in here is my opinions and interpretations of the reading, and they may be wrong.
 
 **Contents**
 
