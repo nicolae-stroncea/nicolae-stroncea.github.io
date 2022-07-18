@@ -1,13 +1,14 @@
 ---
 layout: post
 cover: assets/images/rakuten/cover_image.png
-title: The Privacy Policy for Rakuten Cashback is Terrifying
+title: Rakuten Cashback has a disturbing Privacy Policy
 categories: [ blog, privacyPolicy ]
 comments: true
 ---
 
 <!-- What's in the Rakuten Privacy Policy -->
 <!-- What I found in the Rakuten Privacy Policy -->
+<!-- The Privacy Policy for Rakuten Cashback is Terrifying -->
 
 The [Rakuten Cashback app](https://chrome.google.com/webstore/detail/rakuten-get-cash-back-for/chhjbpecpncaggjpdakmflnfcopglcmi) is a popular browser extension that applies discounts when you shop online and gives you cash back on your purchases. **For Free!** I know what you're thinking: "So you're saying there's a company out there that will save me money out of the goodness of their corporate hearts? I would be a fool not to!". But before you click *Install* and skip the 6000-words-long [Privacy Policy pt.1](https://web.archive.org/web/20220709105501/https://www.rakuten.com/help/article/privacy-policy-360002101688) and [Privacy Policy pt.2](https://web.archive.org/web/20220217095516/https://www.rakuten.com/help/article/rakuten-cash-back-button-privacy-notice-360052819794), find out what's in the sausage and why your dog refuses to eat it.
 
