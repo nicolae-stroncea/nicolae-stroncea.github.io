@@ -12,7 +12,7 @@ comments: true
 
 The [Rakuten Cashback app](https://chrome.google.com/webstore/detail/rakuten-get-cash-back-for/chhjbpecpncaggjpdakmflnfcopglcmi) is a popular browser extension that applies discounts when you shop online and gives you cash back on your purchases. **For Free!** I know what you're thinking: "So you're saying there's a company out there that will save me money out of the goodness of their corporate hearts? I would be a fool not to!". But before you click *Install* and skip the 6000-words-long [Privacy Policy pt.1](https://web.archive.org/web/20220709105501/https://www.rakuten.com/help/article/privacy-policy-360002101688) and [Privacy Policy pt.2](https://web.archive.org/web/20220217095516/https://www.rakuten.com/help/article/rakuten-cash-back-button-privacy-notice-360052819794), find out what's in the sausage and why your dog refuses to eat it.
 
-*Obligatory Disclaimer*: Not a lawyer, hold basic reading comprehension skills (i.e the legalese is way over my head), everything in here is my opinions and interpretations of the reading, and they may be wrong.
+*Obligatory Disclaimer*: Not a lawyer, hold basic reading comprehension skills (i.e the legalese is way over my head), everything in here is my opinions and interpretations of the policy and they may be wrong.
 
 **Contents**
 
@@ -44,7 +44,7 @@ If you sign up with your Google Account or link your email manually, you are als
 
 ### Legitimate use cases
 
-Rakuten collects this data to be able to provide its service (discounts and cashback) and give you better recommendations such as offers from your most frequently visited stores, from similar stores or from Rakuten itself.
+Rakuten collects this data to be able to provide discounts and cashback, to improve their services and give you better recommendations such as offers from your most frequently visited stores, from similar stores or from Rakuten itself.
 
 ### Selling your data
 
@@ -58,7 +58,7 @@ Rakuten admits that for California residents this "may be considered a 'sale' of
 
 ## What is the risk
 
-Installing this cashback extension gives Rakuten, a corporate giant working in e-commerce, advertising and finance, free access to your browsing history, search history and (potentially) emails. Do you trust Rakuten to use this information in your best interests? Do you trust them to be secure enough? What about the countless unnamed affiliate partners, refferal marketing partners, financial partners, and digital advertising providers that Rakuten shares your information with? What do they do with all your data and who might they sell it to?
+Installing this cashback extension gives Rakuten, a corporate giant in e-commerce, advertising and finance, potentially unlimited access to your browsing history, search history and emails. Do you trust Rakuten to use this information in your best interests? Do you trust them to be secure enough? What about the countless unnamed affiliate partners, refferal marketing partners, financial partners, and digital advertising providers that Rakuten shares your information with? What do they do with all your data and who might they sell it to?
 
 Given all of these concerns, the risks of Rakuten Cashback far outweigh its promises. Don't eat this sausage and don't feed it to your dog either.
 
