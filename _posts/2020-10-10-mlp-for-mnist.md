@@ -1,7 +1,7 @@
 ---
 layout: post
 cover:  assets/images/mnist.png
-title:  MLP For MNIST
+title:  My Notes building  an MLP For MNIST
 categories: [ blog, AI, Tutorial ]
 comments: true
 ---
