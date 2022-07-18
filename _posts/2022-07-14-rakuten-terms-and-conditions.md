@@ -17,9 +17,9 @@ The [Rakuten Cashback app](https://chrome.google.com/webstore/detail/rakuten-get
 **Contents**
 
 1. [What's in the Privacy Policy](#whats-in-the-privacy-policy)
-   1. [Rakuten collects your browsing history](#rakuten-collects-your-browsing-history)
-   2. [Rakuten collects your search history](#rakuten-collects-your-search-history)
-   3. [Rakuten collects your email Inbox Data](#rakuten-collects-your-email-inbox-data)
+   1. [Rakuten may collect your browsing history](#rakuten-may-collect-your-browsing-history)
+   2. [Rakuten may collect your search history](#rakuten-may-collect-your-search-history)
+   3. [Rakuten may collect your email Inbox Data](#rakuten-may-collect-your-email-inbox-data)
 2. [Why does Rakuten collect all this data](#why-does-rakuten-collect-all-this-data)
    1. [Legitimate use cases](#legitimate-use-cases)
    2. [Selling your data](#selling-your-data)
@@ -28,15 +28,15 @@ The [Rakuten Cashback app](https://chrome.google.com/webstore/detail/rakuten-get
 
 ## What's in the Privacy Policy
 
-### Rakuten collects your browsing history
+### Rakuten may collect your browsing history
 
-According to the Privacy Policy, the app collects the **URL of any page you visit** along with the **date and time** of your visits [^1]. Effectively, this means Rakuten may have a complete trail of everything you consume in your browser: every website you've been on including all the content you read (Twitter, Reddit, BuzzFeed, Wikipedia, all of it) and everything you watch (Youtube, Netflix, Disney et al). If you want to see what this information looks like, go into your browser's history: everything that's in there could also be on Rakuten's servers.
+According to the Privacy Policy, the app may collect the **URL of any page you visit** along with the **date and time** of your visits [^1]. Effectively, this means Rakuten may have a complete trail of everything you consume in your browser: every website you've been on including all the content you read (Twitter, Reddit, BuzzFeed, Wikipedia, all of it) and everything you watch (Youtube, Netflix, Disney et al). If you want to see what this information looks like, go into your browser's history: everything that's in there could also be on Rakuten's servers.
 
-### Rakuten collects your search history
+### Rakuten may collect your search history
 
 Rakuten may also collect your search history [^1]. Any search you made on Google for the new Mac, a weird rash, a celebrity's net worth, Rakuten might know about it.
 
-### Rakuten collects your email Inbox Data
+### Rakuten may collect your email Inbox Data
 
 If you sign up with your Google Account or link your email manually, you are also giving Rakuten access to reading your emails [^1]. The usage of this data is governed by Rakuten's Privacy Policy and [The Google Api Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy). The latter places additional restrictions on Rakuten's (in my opinion) broad use of your email information. Mainly, Rakuten is not allowed to use your email contents to advertise to you. They may however use your emails to identify trends and perform statistical analyses to improve their services and those of their business partners.
 
