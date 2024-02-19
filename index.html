@@ -32,21 +32,6 @@ permalink:
 <!-- We reopen main-content and container -->
 <div class="container">
     <div class="main-content">
-        <!-- Featured
-        ================================================== -->
-        <section class="featured-posts">
-            <div class="section-title seeAll">
-                <h2><span>Favourite Projects (<a href="{{ site.baseurl }}/projects/">See all</a>)</span></h2>
-            </div>
-            <div class="row listfeaturedtag">
-                {% for post in site.data.projects%}
-                {% if post.featured == true %}
-                {% include featuredbox.html %}
-                {% endif %}
-                {% endfor %}
-            </div>
-        </section>
-
         <!-- Posts Index
         ================================================== -->
         {% if paginator.previous_page %}
@@ -82,4 +67,20 @@ permalink:
                 {% endcomment %}
 
             </div> -->
+        </section>
+
+
+                <!-- Featured
+        ================================================== -->
+        <section class="featured-posts">
+            <div class="section-title seeAll">
+                <h2><span>Favourite Projects (<a href="{{ site.baseurl }}/projects/">See all</a>)</span></h2>
+            </div>
+            <div class="row listfeaturedtag">
+                {% for post in site.data.projects%}
+                {% if post.featured == true %}
+                {% include featuredbox.html %}
+                {% endif %}
+                {% endfor %}
+            </div>
         </section>
