@@ -14,7 +14,7 @@ If you're religious, you don't have to worry about this. Believing in a God remo
 
 But what if you're one of the 500 million people that doesn't believe in a God? What do you do when there's nobody watching over you, when it's just you, 80 years of consciousness and no manual on how to fill them?
 
-After several walks in the forest and many visits to expensive coffee shops I have the answer: life is meaningless.
+After several walks in the forest and visits to expensive coffee shops I have the answer: life is meaningless.
 
 *WHAT*
 
