@@ -1,25 +1,15 @@
 # Site
 name: InsideFull
-description: Nick Stroncea's digital box of projects, thoughts and ideas that spark curiosity
-meta_description: Blog filled with Computer Science, AI, self improvement, life logging, and CS projects.
+description: A digital box of thoughts and ideas about life
+meta_description: A digital box of thoughts and ideas about life
 logo: /assets/images/logo.png
 favicon: /assets/images/favicon.ico
 paginate: 6
 baseurl:
-email: 'stroncea.nicolae@gmail.com'
+# email: 'stroncea.nicolae@gmail.com'
 google_analytics: UA-180310035-1
 sharethis:
 
-# Authors
-authors:
-  nick:
-    name: Nick
-    display_name: Nick
-    image: /assets/images/nick.jpg
-    email: stroncea.nicolae@gmail.com
-    web: www.nicolae-stroncea.github.io
-    twitter:
-    description:
 
 # Plugins
 plugins:
@@ -57,11 +47,3 @@ include:
 #   app_id:
 #   publisher: john.com
 #   admins:
-
-social:
-  name: Nick Stroncea
-  links:
-      # - https://twitter.com/
-      # - https://www.facebook.com/
-      - https://www.linkedin.com/in/nicolae-stroncea
-      - https://github.com/in/nicolae-stroncea
