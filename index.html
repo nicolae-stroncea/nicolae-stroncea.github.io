@@ -13,6 +13,10 @@ permalink:
 <!-- We reopen main-content and container -->
 <div class="container">
     <div class="main-content">
+        <div class="seeAll">
+            <h5><span><a style="color:black" href="{{ site.baseurl }}/thoughts">Quick Thoughts</a></span></h5>
+        </div>
+        <hr>
         <!-- Posts Index
         ================================================== -->
         {% if paginator.previous_page %}
@@ -23,7 +27,7 @@ permalink:
         <section class="recent-posts row">
             <div class="col-sm-12">
                 <div class="section-title seeAll">
-                    <h2><span>Blog Posts (<a  href="{{ site.baseurl }}/category/blog/">See all</a>)</span></h2>
+                    <h2><span>Blog Posts (<a href="{{ site.baseurl }}/category/blog/">See all</a>)</span></h2>
                 </div>
                 <div class="masonrygrid row listrecent">
                     {% for post in paginator.posts %}
